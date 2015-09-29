@@ -1,0 +1,16 @@
+<html>
+<head></head>
+<body>
+    <div id="account"></div>
+    <div id="content"></div>
+
+    <script type="text/javascript" src="/static/goldfish.js"></script>
+    <script type="text/javascript">
+        function boot(){
+            var applicationJson = {{application|tojson}};
+            window.goldfish.start(applicationJson);
+        }
+        boot();
+    </script>
+</body>
+</html>
