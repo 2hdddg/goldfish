@@ -26,10 +26,16 @@ export default class ModalLink extends React.Component {
         let link = <a href="#" className={this.props.classes} onClick={this._open}>{this.props.text}</a>;
         let modal;
         if (this.state.isOpen){
+            let closeStyle = {
+                'float': 'right',
+                'font-size': '28px'
+            };
             modal =
                 <div className="modalDialog">
                     <div>
-                    <a href="#" onClick={this._close}>Close</a>
+                    <a style={closeStyle} href="#" onClick={this._close}>
+                        <span className="typcn typcn-delete-outline"></span>
+                    </a>
                     {this.state.content}
                     </div>
                 </div>;

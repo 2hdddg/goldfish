@@ -42,13 +42,16 @@ var LoginForm = React.createClass({
             html = (<span>Busy</span>);
         }
         else{
-            html = (<form className="pure-form">
+            html = (<form className="pure-form pure-form-stacked">
                         <fieldset>
-                            <legend>Log in</legend>
+                            <legend>Please enter your credentials.</legend>
+
                             <label for="email">Email</label>
                             <input id="email" type="email" placeholder="Your email" ref="username" />
+
                             <label for="password">Password</label>
                             <input id="password" type="password" placeholder="Password" ref="password" />
+
                             <button className="pure-button pure-button-primary" onClick={this._submit}>Log in</button>
                         </fieldset>
                         <span>{this.state.message}</span>

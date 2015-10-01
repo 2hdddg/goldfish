@@ -23,7 +23,6 @@ export default function start(applicationJson){
     });
 
     application.on('login', (/*event, model*/) => {
-        debugger;
         accountArea.render();
         pageArea.render();
     });
