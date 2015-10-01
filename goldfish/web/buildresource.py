@@ -69,14 +69,3 @@ def user_ref(context, user):
 
     return resource.UserRef(
         ref=ref, cls=cls, first_name=user.first_name, last_name=user.last_name)
-
-# def build_logon_result(user):
-#     affected = {}
-#     if user:
-#         data = resource.LogonResultData()
-#         application = build_application(user)
-#         affected[application.ref] = application
-#     else:
-#         data = resource.LogonResultData()
-
-#     return resource.ActionResult(data=data, affected=affected)

@@ -7,7 +7,43 @@ from collections import namedtuple
     Based on current state and who is asking, the representation also
     contains what actions that can be performed on it and what
     other related resources that can be reached.
+
+    Example:
+
+    {
+        ref: '/url/to/load/myself',
+        cls: 'ResourceClassName',
+        data: {
+
+        },
+        links: {
+            next: 'url/to/load/more/data',
+        },
+        actions:
+            create: {
+                ref: '/whatever/create',
+                form: {
+                    first_name: {
+                        value: '',
+                        type: number/email/text/password/specific
+                    },
+                    password: {
+                    }
+                }
+            }
+        },
+        embedded: {
+            // Named entry
+            'current': {
+                // a resource as well
+            },
+            'url/to/something/refered/to/in/link/or/data': {
+                // a resource as well
+            }
+        }
+    }
 """
+
 Resource = namedtuple('Resource', [
     'ref',
     'cls',
@@ -17,16 +53,31 @@ Resource = namedtuple('Resource', [
     'embedded'
 ])
 
+Action = namedtuple('Action', [
+    'ref',
+    'form'
+])
+
+FormField = namedtuple('FormField', [
+    'value',
+    'type'
+])
+
 ApplicationData = namedtuple('ApplicationData', ['user_ref'])
+
 CalendarData = namedtuple('CalendarData', [])
+
 UserData = namedtuple('UserData', [
     'first_name',
     'last_name'
 ])
+
 UserTemplateData = namedtuple('UserTemplate', [
     'first_name',
-    'last_name'
+    'last_name',
 ])
+
+
 UserRef = namedtuple('UserRef', [
     'ref',
     'cls',

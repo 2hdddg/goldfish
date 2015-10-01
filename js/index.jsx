@@ -3,32 +3,31 @@
 import {setCallbacks as setCurrentPageCallbacks } from './infrastructure/currentpage';
 import Server from './infrastructure/server';
 import Application from './models/application';
-import AccountArea from './areas/accountarea';
-import ContentArea from './areas/contentarea';
+import HeaderArea from './areas/headerarea';
+import PageArea from './areas/pagearea';
 
-function start(applicationJson){
+export default function start(applicationJson){
     let server = new Server();
     let application = new Application(
         applicationJson, server);
-    let accountArea = new AccountArea(application, document.getElementById('account'));
-    let contentArea = new ContentArea(application, document.getElementById('content'));
+    let accountArea = new HeaderArea(application, document.getElementById('account'));
+    let pageArea = new PageArea(application, document.getElementById('content'));
 
     setCurrentPageCallbacks(url => {
         server
             .getJson(url)
             .then(json => {
                 application.current = json;
-                contentArea.render();
+                pageArea.render();
             });
     });
 
     application.on('login', (/*event, model*/) => {
+        debugger;
         accountArea.render();
-        contentArea.render();
+        pageArea.render();
     });
 
     accountArea.render();
-    contentArea.render();
+    pageArea.render();
 }
-
-export default start;

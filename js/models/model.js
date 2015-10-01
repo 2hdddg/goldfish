@@ -25,7 +25,6 @@ class Model {
         return !!this._getAction(name);
     }
 
-
     _actionCompleted(name){
         if (this._subscriptions){
             this._subscriptions.publish(name, {model:this});

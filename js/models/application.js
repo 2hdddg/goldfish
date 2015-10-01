@@ -18,7 +18,6 @@ function _createModelFromJson(json, server){
     return new ctor(json, server)
 }
 
-
 export default class Application extends Model {
     constructor(json, server){
         super(json, server);

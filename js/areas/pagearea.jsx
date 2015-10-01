@@ -3,7 +3,7 @@
 import React from 'react';
 import * as pages from '../pages/pages';
 
-class ContentArea{
+export default class PageArea{
     constructor(application, atElement){
         this._application = application;
         this._atElement = atElement;
@@ -33,5 +33,3 @@ class ContentArea{
         );
     }
 }
-
-export default ContentArea;

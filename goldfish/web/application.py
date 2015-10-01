@@ -8,25 +8,6 @@ import goldfish.web.buildresource as build_resource_for
 
 application = Flask("Goldfish application")
 
-"""
-    Load of application html and stuff
-    GET /
-
-    Load of application html and stuff
-    but client can make a request on part after x
-    to init its state on refresh
-    GET /state/api/calendar/666?embed=application
-
-    Initial load of application state:
-    GET /application
-
-    Reload of current state and application state:
-    GET /calendar/666?embed=application
-
-    Pure api call from client
-    GET /calendar/666
-"""
-
 
 class Context(object):
     def __init__(self, workunit, user=None, userid=None):

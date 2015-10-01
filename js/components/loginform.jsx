@@ -9,7 +9,7 @@ var LoginForm = React.createClass({
             message: ''
         };
     },
-    _submit: function(){
+    _submit: function(event){
         let username = React.findDOMNode(this.refs.username).value.trim();
         let password = React.findDOMNode(this.refs.password).value.trim();
 
@@ -19,6 +19,10 @@ var LoginForm = React.createClass({
         application.login(username, password)
             .then(() => {
                 this.setState({isBusy: false, message: ''});
+                let requestClose = this.props.requestClose;
+                if (requestClose){
+                    requestClose();
+                }
             })
             .catch(error => {
                 if (error.response && error.response.status === 401){
@@ -29,6 +33,7 @@ var LoginForm = React.createClass({
                     throw error;
                 }
             });
+        event.preventDefault();
     },
     render: function(){
         let html;
@@ -37,11 +42,15 @@ var LoginForm = React.createClass({
             html = (<span>Busy</span>);
         }
         else{
-            html = (<form>
-                        <h1>Login</h1>
-                        <input type="text" placeholder="Your email" ref="username" /><br />
-                        <input type="password" placeholder="Password" ref="password" /><br />
-                        <input type="button" value="Login" onClick={this._submit} />
+            html = (<form className="pure-form">
+                        <fieldset>
+                            <legend>Log in</legend>
+                            <label for="email">Email</label>
+                            <input id="email" type="email" placeholder="Your email" ref="username" />
+                            <label for="password">Password</label>
+                            <input id="password" type="password" placeholder="Password" ref="password" />
+                            <button className="pure-button pure-button-primary" onClick={this._submit}>Log in</button>
+                        </fieldset>
                         <span>{this.state.message}</span>
                     </form>);
         }

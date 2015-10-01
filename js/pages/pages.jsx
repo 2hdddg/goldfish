@@ -3,7 +3,24 @@
 import React from 'react';
 
 export class UserTemplate extends React.Component {
+
+    constructor(){
+        super();
+        this.state = {
+            isBusy: false,
+            validationMessage: ''
+        };
+    }
+
     render(){
-        return (<span>{this.props.model.cls}</span>);
+        let html;
+
+        if (this.state.isBusy){
+            html = (<span>Busy</span>);
+        }
+        else{
+            html = (<div>Skapa konto</div>);
+        }
+        return html;
     }
 }
