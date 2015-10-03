@@ -28,7 +28,7 @@ export default class ModalLink extends React.Component {
         if (this.state.isOpen){
             let closeStyle = {
                 'float': 'right',
-                'font-size': '28px'
+                'fontSize': '28px'
             };
             modal =
                 <div className="modalDialog">

@@ -1,6 +1,21 @@
 import goldfish.web.resource as resource
 
 
+def _logout_action():
+    form = {}
+    return resource.Action(
+        ref='/application/logout', form=form)
+
+
+def _login_action():
+    form = {
+        'username': resource.FormField(value='', type='email'),
+        'password': resource.FormField(value='', type='password')
+    }
+    return resource.Action(
+        ref='/application/login', form=form)
+
+
 def application(context, current=None):
     ref = '/application'
     cls = 'Application'
@@ -12,11 +27,11 @@ def application(context, current=None):
     data = None
 
     if context.is_authorized:
-        actions['logout'] = '/application/logout'
+        actions['logout'] = _logout_action()
         user = user_ref(context, context.user)
         data = resource.ApplicationData(user_ref=user)
     else:
-        actions['login'] = '/application/login'
+        actions['login'] = _login_action()
         links['userTemplate'] = '/user/template'
         data = resource.ApplicationData(user_ref=None)
 

@@ -40,12 +40,28 @@ def get_context():
     return context
 
 
+def _dict_contining_namedtuples_to_dict(d):
+    for k, v in d.iteritems():
+        if isinstance(v, tuple):
+            d[k] = _namedtuple_to_dict(v)
+        elif isinstance(v, dict):
+            d[k] = _dict_contining_namedtuples_to_dict(v)
+    return d
+
+
+def _namedtuple_to_dict(nt):
+    d = nt._asdict()
+    return _dict_contining_namedtuples_to_dict(d)
+
+
 def _response(context, result):
     if request.is_xhr:
-        return jsonify(**result.__dict__)
+        result_as_dict = _namedtuple_to_dict(result)
+        return jsonify(result_as_dict)
 
-    application = build_resource_for.application(context, current=result.__dict__)
-    return render_template('index.html', application=application.__dict__)
+    application = build_resource_for.application(context, current=result)
+    application_as_dict = _namedtuple_to_dict(application)
+    return render_template('index.html', application=application_as_dict)
 
 
 @application.route('/', methods=['GET'])
@@ -53,9 +69,10 @@ def index():
     context = get_context()
     with context.workunit:
         application = build_resource_for.application(context)
+        application_as_dict = _namedtuple_to_dict(application)
         if request.is_xhr:
-            return jsonify(**application.__dict__)
-        return render_template('index.html', application=application.__dict__)
+            return jsonify(application_as_dict)
+        return render_template('index.html', application=application_as_dict)
 
 
 @application.route('/application', methods=['GET'])

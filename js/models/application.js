@@ -29,8 +29,9 @@ export default class Application extends Model {
     }
 
     login(username, password){
-        let loginUrl = this._getAction('login');
-
+        let loginAction = this._getAction('login');
+        let loginUrl = loginAction.ref;
+        debugger;
         return this._server
             .postJson(loginUrl, {
                 username: username,
