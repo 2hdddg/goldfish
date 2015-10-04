@@ -2,18 +2,28 @@ import goldfish.web.resource as resource
 
 
 def _logout_action():
-    form = {}
+    form = []
     return resource.Action(
         ref='/application/logout', form=form)
 
 
 def _login_action():
-    form = {
-        'username': resource.FormField(value='', type='email'),
-        'password': resource.FormField(value='', type='password')
-    }
+    form = [
+        resource.FormField(name='username', value='', type='email', required=True),
+        resource.FormField(name='password', value='', type='password', required=True)
+    ]
     return resource.Action(
         ref='/application/login', form=form)
+
+
+def _create_user_action():
+    form = [
+        resource.FormField(name='first_name', value='', type='name', required=True),
+        resource.FormField(name='last_name', value='', type='name', required=True),
+        resource.FormField(name='email', value='', type='email', required=True)
+    ]
+    return resource.Action(
+        ref='/user/create', form=form)
 
 
 def application(context, current=None):
@@ -68,14 +78,13 @@ def user_template(context):
     ref = '/user/template'
     cls = 'UserTemplate'
     links = {}
-    actions = {}
+    actions = {
+        'create': _create_user_action()
+    }
     embedded = {}
 
-    data = resource.UserTemplateData(
-        first_name='', last_name='')
-
     return resource.Resource(
-        ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
+        ref=ref, cls=cls, data=None, links=links, actions=actions, embedded=embedded)
 
 
 def user_ref(context, user):

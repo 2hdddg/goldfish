@@ -1,22 +1,25 @@
 'use strict';
 
 import React from 'react';
+import { StackedActionForm } from './actionform'
 
-var LoginForm = React.createClass({
-    getInitialState: function(){
-        return {
+export default class LoginForm extends React.Component{
+    constructor(){
+        super();
+        this._form = new StackedActionForm();
+        this.state = {
             isBusy: false,
             message: ''
         };
-    },
-    _submit: function(event){
-        let username = React.findDOMNode(this.refs.username).value.trim();
-        let password = React.findDOMNode(this.refs.password).value.trim();
+        this._submit = this._submit.bind(this);
+    }
+    _submit(event){
+        let loginAction = this.props.application.getLoginAction();
+        let data = this._form.getData(loginAction, this);
 
         this.setState({isBusy: true});
-        let application = this.props.application;
 
-        application.login(username, password)
+        loginAction.submit(data)
             .then(() => {
                 this.setState({isBusy: false, message: ''});
                 let requestClose = this.props.requestClose;
@@ -34,31 +37,33 @@ var LoginForm = React.createClass({
                 }
             });
         event.preventDefault();
-    },
-    render: function(){
+    }
+    render(){
         let html;
+        let application = this.props.application;
 
         if (this.state.isBusy){
             html = (<span>Busy</span>);
         }
-        else{
-            html = (<form className="pure-form pure-form-stacked">
-                        <fieldset>
-                            <legend>Please enter your credentials.</legend>
-
-                            <label for="email">Email</label>
-                            <input id="email" type="email" placeholder="Your email" ref="username" />
-
-                            <label for="password">Password</label>
-                            <input id="password" type="password" placeholder="Password" ref="password" />
-
-                            <button className="pure-button pure-button-primary" onClick={this._submit}>Log in</button>
-                        </fieldset>
-                        <span>{this.state.message}</span>
-                    </form>);
+        else if (!application.hasLoginAction()){
         }
-        return html;
-    }
-});
+        else{
+            let loginAction = application.getLoginAction();
+            let lookup = {
+                label: {
+                    username: 'Email',
+                    password: 'Password'
+                },
+                placeholder: {
+                    username: 'Your email',
+                    password: 'Password'
+                }
+            }
+            html = this._form.htmlFormForAction(
+                loginAction, 'Please enter your credentials.', 'Log in', (usage, fieldname) => lookup[usage][fieldname], this._submit);
+        }
 
-export default LoginForm;
+        return (
+            <div>{html}<span>{this.state.message}</span></div>);
+    }
+};

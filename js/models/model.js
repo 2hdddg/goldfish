@@ -2,6 +2,28 @@
 
 import Subscriptions from '../infrastructure/subscriptions.js'
 
+class Action {
+    constructor(name, json, server, onSubmit){
+        this._name = name;
+        this._json = json;
+        this._server = server;
+        this._onSubmit = onSubmit;
+    }
+
+    getFormFields(){
+        return this._json.form;
+    }
+
+    submit(data){
+        return this._server
+            .postJson(this._json.ref, data)
+            .then(json => {
+                this._onSubmit(json);
+                return true;
+            });
+    }
+}
+
 class Model {
     constructor(json, server){
         this._server = server;
@@ -17,12 +39,21 @@ class Model {
         return this._json.cls;
     }
 
-    _getAction(name){
-        return this._json.actions[name];
+    getAction(name){
+        let json = this._json.actions[name];
+        if (!json){
+            throw "Unable to find json for action named " + name;
+        }
+        let onSubmit = (responseJson) => {
+            this._json = responseJson;
+            this._actionCompleted(name);
+        };
+        return new Action(name, json, this._server, onSubmit);
     }
 
-    _hasAction(name){
-        return !!this._getAction(name);
+    hasAction(name){
+        let json = this._json.actions[name];
+        return !!json;
     }
 
     _actionCompleted(name){

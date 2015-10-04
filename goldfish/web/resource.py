@@ -59,8 +59,10 @@ Action = namedtuple('Action', [
 ])
 
 FormField = namedtuple('FormField', [
+    'name',
     'value',
-    'type'
+    'type',
+    'required'
 ])
 
 ApplicationData = namedtuple('ApplicationData', ['user_ref'])
@@ -71,12 +73,6 @@ UserData = namedtuple('UserData', [
     'first_name',
     'last_name'
 ])
-
-UserTemplateData = namedtuple('UserTemplate', [
-    'first_name',
-    'last_name',
-])
-
 
 UserRef = namedtuple('UserRef', [
     'ref',

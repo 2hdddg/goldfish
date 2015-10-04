@@ -20,9 +20,9 @@ export default class HeaderArea{
         let application = this._application;
         let menuitemClasses = "pure-menu-link";
         let menuitems = [];
-        if (application.canLogin()){
+        if (application.hasLoginAction()){
             menuitems.push(
-                <li className="pure-menu-item">
+                <li key="login" className="pure-menu-item">
                     <ModalLink classes={menuitemClasses} key="login" text="Login" link="Log In" getContent={this._getLoginForm} />
                 </li>);
         }
@@ -31,7 +31,7 @@ export default class HeaderArea{
             application.getLink('userTemplate');
         if (userTemplateLink){
             menuitems.push(
-                <li className="pure-menu-item">
+                <li key="signup" className="pure-menu-item">
                     <ApplicationLink classes={menuitemClasses} key="createuser" text="Sign Up" link={userTemplateLink} />
                 </li>);
         }

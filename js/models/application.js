@@ -24,24 +24,12 @@ export default class Application extends Model {
         this._current = null;
     }
 
-    canLogin(){
-        return this._hasAction('login');
+    hasLoginAction(){
+        return this.hasAction('login');
     }
 
-    login(username, password){
-        let loginAction = this._getAction('login');
-        let loginUrl = loginAction.ref;
-        debugger;
-        return this._server
-            .postJson(loginUrl, {
-                username: username,
-                password: password
-            })
-            .then(json => {
-                this._json = json;
-                this._actionCompleted('login');
-                return true;
-            });
+    getLoginAction(data){
+        return this.getAction('login');
     }
 
     get current(){
