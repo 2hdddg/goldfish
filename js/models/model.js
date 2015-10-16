@@ -70,7 +70,7 @@ export default class Model {
         }
 
         return this._subscriptions.add(name, eventData => {
-            log.info("Got event: '" + name + "'' on " + this._repr() + ", passing on...");
+            log.info("Got event '" + name + "' on " + this._repr() + ", passing on...");
             callback(name, eventData);
         });
     }

@@ -25,7 +25,7 @@ def created_user(context, user):
     if context.is_authorized and context.user.id == user.id:
         application = build_resource_for.application(context)
         embedded[application.ref] = application
-        events['logged_in'] = application.data.user_ref
-        events['changed'] = build_resource_for.application_ref(context)
+        events['logged_in'] = [application.data.user_ref]
+        events['changed'] = [build_resource_for.application_ref(context)]
     response = ActionResponse(events=events, embedded=embedded)
     return response
