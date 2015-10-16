@@ -1,44 +1,22 @@
 'use strict';
 
 import Model from './model'
-import * as models from './models';
-
-function _createModelFromJson(json, server){
-    let cls = json.cls;
-
-    if (!cls){
-        throw "Can not create model from nothing";
-    }
-
-    let ctor = models[cls];
-    if (!ctor){
-        throw "Unable to find model constructor named:" + cls;
-    }
-
-    return new ctor(json, server)
-}
 
 export default class Application extends Model {
-    constructor(json, server){
-        super(json, server);
+
+    constructor(json, server, factory, sync){
+        super(json, server, factory, sync);
         this._current = null;
-    }
-
-    hasLoginAction(){
-        return this.hasAction('login');
-    }
-
-    getLoginAction(data){
-        return this.getAction('login');
     }
 
     get current(){
         if (!this._current){
             // Check if backend has supplied us
             // with a current model
-            let embedded = this._json.embedded.current;
-            if (embedded){
-                this._current =_createModelFromJson(embedded, this._server);
+            let current_url = this._json.data.current_url;
+            if (current_url){
+                let embedded = this._json.embedded[current_url];
+                this._current = this._factory.createFromJson(embedded);
             }
         }
         return this._current;
@@ -53,7 +31,7 @@ export default class Application extends Model {
             this._current = null;
         }
         else{
-            this._current = _createModelFromJson(json, this._server);
+            this._current = this._factory.createFromJson(json);
         }
     }
 }

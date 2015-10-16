@@ -14,13 +14,13 @@ export default class LoginForm extends React.Component{
         this._submit = this._submit.bind(this);
     }
     _submit(event){
-        let loginAction = this.props.application.getLoginAction();
+        let loginAction = this.props.application.getAction('login');
         let data = this._form.getData(loginAction, this);
 
         this.setState({isBusy: true});
 
         loginAction.submit(data)
-            .then(() => {
+            .then(model => {
                 this.setState({isBusy: false, message: ''});
                 let requestClose = this.props.requestClose;
                 if (requestClose){
@@ -45,10 +45,10 @@ export default class LoginForm extends React.Component{
         if (this.state.isBusy){
             html = (<span>Busy</span>);
         }
-        else if (!application.hasLoginAction()){
+        else if (!application.hasAction('login')){
         }
         else{
-            let loginAction = application.getLoginAction();
+            let loginAction = application.getAction('login');
             let lookup = {
                 label: {
                     username: 'Email',

@@ -1,34 +1,19 @@
 'use strict';
 
-import Subscriptions from '../infrastructure/subscriptions.js'
+import Subscriptions from '../infrastructure/subscriptions.js';
+import log from '../infrastructure/log.js';
+import Action from './action';
+import ActionResponse from './actionresponse';
 
-class Action {
-    constructor(name, json, server, onSubmit){
-        this._name = name;
+export default class Model {
+    constructor(json, server, factory, sync){
+        this._server = server;
         this._json = json;
-        this._server = server;
-        this._onSubmit = onSubmit;
-    }
-
-    getFormFields(){
-        return this._json.form;
-    }
-
-    submit(data){
-        return this._server
-            .postJson(this._json.ref, data)
-            .then(json => {
-                this._onSubmit(json);
-                return true;
-            });
-    }
-}
-
-class Model {
-    constructor(json, server){
-        this._server = server;
+        this._factory = factory;
+        this._sync = sync;
+        this._syncing = null;
         this._subscriptions = null;
-        this._json = json;
+        this._onSyncCallback = this._onSyncCallback.bind(this);
     }
 
     get ref(){
@@ -44,9 +29,11 @@ class Model {
         if (!json){
             throw "Unable to find json for action named " + name;
         }
-        let onSubmit = (responseJson) => {
-            this._json = responseJson;
-            this._actionCompleted(name);
+
+        let onSubmit = (actionJson) => {
+            let actionResponse = new ActionResponse(actionJson);
+            this._sync.onAction(actionResponse);
+            return actionResponse;
         };
         return new Action(name, json, this._server, onSubmit);
     }
@@ -56,17 +43,45 @@ class Model {
         return !!json;
     }
 
-    _actionCompleted(name){
-        if (this._subscriptions){
-            this._subscriptions.publish(name, {model:this});
-        }
+    _repr(){
+        return this.ref + "[" + 0 + "]";
     }
 
-    on(name, callback){
+    _onSyncCallback(data){
+        // Update my own state
+        if (data.modelJson){
+            this._json = data.modelJson;
+            log.info("Updated model " + this._repr() + " with fresh json.");
+        }
+
+        // Notify all my subscribers
+        data.events.forEach(eventName =>
+            this._subscriptions.publish(eventName, this));
+    }
+
+    subscribe(name, callback){
+        if (!this._syncing){
+            this._syncing = this._sync.start(this, this._onSyncCallback);
+            log.info("Registered model " + this._repr() + " for sync.");
+        }
+
         if (!this._subscriptions){
             this._subscriptions = new Subscriptions();
         }
-        this._subscriptions.add(name, callback);
+
+        return this._subscriptions.add(name, eventData => {
+            log.info("Got event: '" + name + "'' on " + this._repr() + ", passing on...");
+            callback(name, eventData);
+        });
+    }
+
+    unsubscribe(subscription){
+        this._subscriptions.remove(subscription);
+        if (this._subscriptions.empty()){
+            this._syncing.stop();
+            this._syncing = null;
+            log.info("Unregistered model " + this._repr() + " for sync.");
+        }
     }
 
     getLink(name){
@@ -77,5 +92,3 @@ class Model {
         return !!this.getLink(name);
     }
 }
-
-export default Model;

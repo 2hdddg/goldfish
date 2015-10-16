@@ -3,18 +3,32 @@
 import React from 'react';
 
 export class StackedActionForm{
-    appendHtmlForField(htmlForm, field, getFieldText){
+    _label(field, getFieldText){
         let name = field.name;
         let label = getFieldText('label', name);
+        return <label htmlFor={name}>{label}</label>;
+    }
+    _input(field, type, getFieldText){
+        let name = field.name;
         let placeholder = getFieldText('placeholder', name);
-        htmlForm.push(<label htmlFor={name}>{label}</label>);
-        htmlForm.push(<input id={name} type={field.type} placeholder={placeholder} ref={name} />);
+        return <input id={name} type={type} placeholder={placeholder} ref={name} />;
+    }
+    appendHtmlForField(htmlForm, field, getFieldText){
+        let type = field.type;
+        const inputs = {
+            email: (f, g) => this._input(f, 'email', g),
+            password: (f, g) => this._input(f, 'password', g),
+            name: (f, g) => this._input(f, 'text', g)
+        };
+        let input = inputs[type](field, getFieldText)
+
+        htmlForm.push(this._label(field, getFieldText));
+        htmlForm.push(input);
     }
     htmlFormForAction(action, headerText, submitText, getFieldText, submit){
         let fields = [];
-        for (let field of action.getFormFields()){
-            this.appendHtmlForField(fields, field, getFieldText);
-        }
+        action.getFormFields().forEach(f =>
+            this.appendHtmlForField(fields, f, getFieldText));
         return (<form className="pure-form pure-form-stacked">
                     <fieldset>
                         <legend>{headerText}</legend>
@@ -26,11 +40,11 @@ export class StackedActionForm{
     getData(action, view){
         let data = {};
         let refs = view.refs;
-        for (let field of action.getFormFields()){
-            let name = field.name;
+        action.getFormFields().forEach(f => {
+            let name = f.name;
             let value = React.findDOMNode(refs[name]).value.trim();
             data[name] = value;
-        }
+        });
         return data;
     }
 }

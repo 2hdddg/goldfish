@@ -1,28 +1,29 @@
-import goldfish.web.resource as resource
+from goldfish.web.resource import Resource, ApplicationData, CalendarData, UserData, UserRef, ApplicationRef
+from goldfish.web.action import Action, FormField
 
 
 def _logout_action():
     form = []
-    return resource.Action(
+    return Action(
         ref='/application/logout', form=form)
 
 
 def _login_action():
     form = [
-        resource.FormField(name='username', value='', type='email', required=True),
-        resource.FormField(name='password', value='', type='password', required=True)
+        FormField(name='username', value='', type='email', required=True),
+        FormField(name='password', value='', type='password', required=True)
     ]
-    return resource.Action(
+    return Action(
         ref='/application/login', form=form)
 
 
 def _create_user_action():
     form = [
-        resource.FormField(name='first_name', value='', type='name', required=True),
-        resource.FormField(name='last_name', value='', type='name', required=True),
-        resource.FormField(name='email', value='', type='email', required=True)
+        FormField(name='first_name', value='', type='name', required=True),
+        FormField(name='last_name', value='', type='name', required=True),
+        FormField(name='email', value='', type='email', required=True)
     ]
-    return resource.Action(
+    return Action(
         ref='/user/create', form=form)
 
 
@@ -31,22 +32,28 @@ def application(context, current=None):
     cls = 'Application'
     links = {}
     actions = {}
-    embedded = {
-        'current': current
-    }
+    embedded = {}
     data = None
+    current_url = current.ref if current else None
+
+    if current:
+        embedded[current.ref] = current
 
     if context.is_authorized:
         actions['logout'] = _logout_action()
         user = user_ref(context, context.user)
-        data = resource.ApplicationData(user_ref=user)
+        data = ApplicationData(user_ref=user, current_url=current_url)
     else:
         actions['login'] = _login_action()
         links['userTemplate'] = '/user/template'
-        data = resource.ApplicationData(user_ref=None)
+        data = ApplicationData(user_ref=None, current_url=current_url)
 
-    return resource.Resource(
+    return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
+
+
+def application_ref(context):
+    return ApplicationRef(ref='/application', cls="ApplicationRef")
 
 
 def calendar(context, calendar):
@@ -55,9 +62,9 @@ def calendar(context, calendar):
     links = {}
     actions = {}
     embedded = {}
-    data = resource.CalendarData()
+    data = CalendarData()
 
-    return resource.Resource(
+    return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
 
 
@@ -67,10 +74,10 @@ def user(context, user):
     links = {}
     actions = {}
     embedded = {}
-    data = resource.UserData(
+    data = UserData(
         first_name=user.first_name, last_name=user.last_name)
 
-    return resource.Resource(
+    return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
 
 
@@ -83,7 +90,7 @@ def user_template(context):
     }
     embedded = {}
 
-    return resource.Resource(
+    return Resource(
         ref=ref, cls=cls, data=None, links=links, actions=actions, embedded=embedded)
 
 
@@ -91,5 +98,5 @@ def user_ref(context, user):
     ref = '/user/%s' % user.id
     cls = 'UserRef'
 
-    return resource.UserRef(
+    return UserRef(
         ref=ref, cls=cls, first_name=user.first_name, last_name=user.last_name)

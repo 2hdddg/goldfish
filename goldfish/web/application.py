@@ -5,6 +5,7 @@ from goldfish.core.infrastructure import WorkUnit
 import goldfish.core.lookup as lookup
 import goldfish.core.command as command
 import goldfish.web.buildresource as build_resource_for
+import goldfish.web.buildactionresponse as build_action_response_for
 
 application = Flask("Goldfish application")
 
@@ -110,16 +111,14 @@ def login():
             # user
             context = Context(workunit, user)
 
-    result = build_resource_for.application(context)
-    response = make_response(jsonify(**result.__dict__))
+            # build token and set cookie
 
-    if user:
-        pass
-        # build token and set cookie
-    else:
-        # Set some http status code
-        # 401
-        response.status_code = 401
+            result = build_action_response_for.logged_in(context)
+            result = _namedtuple_to_dict(result)
+            response = make_response(jsonify(result))
+        else:
+            response = make_response()
+            response.status_code = 401
 
     return response
 
@@ -130,6 +129,28 @@ def user_template():
     with context.workunit:
         result = build_resource_for.user_template(context)
         return _response(context, result)
+
+
+@application.route('/user/create', methods=['POST'])
+def user_create():
+    body = request.get_json()
+    first_name = body['first_name']
+    last_name = body['last_name']
+
+    context = get_context()
+    with context.workunit as workunit:
+        user = command.create_user(
+            workunit, first_name, last_name, '', '')
+        if not context.is_authorized:
+            # Login user, assume sign up
+            # Recreate the context with created user
+            context = Context(workunit, user)
+
+            # build token and set cookie
+
+        result = build_action_response_for.created_user(context, user)
+    result_as_dict = _namedtuple_to_dict(result)
+    return make_response(jsonify(result_as_dict))
 
 
 @application.route("/calendar/<int:id>", methods=['GET'])

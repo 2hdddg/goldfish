@@ -20,7 +20,7 @@ export default class HeaderArea{
         let application = this._application;
         let menuitemClasses = "pure-menu-link";
         let menuitems = [];
-        if (application.hasLoginAction()){
+        if (application.hasAction('login')){
             menuitems.push(
                 <li key="login" className="pure-menu-item">
                     <ModalLink classes={menuitemClasses} key="login" text="Login" link="Log In" getContent={this._getLoginForm} />

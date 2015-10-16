@@ -53,19 +53,7 @@ Resource = namedtuple('Resource', [
     'embedded'
 ])
 
-Action = namedtuple('Action', [
-    'ref',
-    'form'
-])
-
-FormField = namedtuple('FormField', [
-    'name',
-    'value',
-    'type',
-    'required'
-])
-
-ApplicationData = namedtuple('ApplicationData', ['user_ref'])
+ApplicationData = namedtuple('ApplicationData', ['user_ref', 'current_url'])
 
 CalendarData = namedtuple('CalendarData', [])
 
@@ -79,4 +67,9 @@ UserRef = namedtuple('UserRef', [
     'cls',
     'first_name',
     'last_name'
+])
+
+ApplicationRef = namedtuple('ApplicationRef', [
+    'ref',
+    'cls',
 ])
