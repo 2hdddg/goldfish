@@ -14,7 +14,7 @@ export default function start(applicationJson){
     let modelFactory = new ModelFactory(server, sync);
     let application = new Application(
         applicationJson, server, modelFactory, sync);
-    let accountArea = new HeaderArea(application, document.getElementById('account'));
+    let headerArea = new HeaderArea(application, document.getElementById('account'));
     let pageArea = new PageArea(application, document.getElementById('content'));
 
     setCurrentPageCallbacks(url => {
@@ -27,10 +27,10 @@ export default function start(applicationJson){
     });
 
     application.subscribe('changed', (name, eventData) => {
-        accountArea.render();
+        headerArea.render();
         pageArea.render();
     });
 
-    accountArea.render();
+    headerArea.render();
     pageArea.render();
 }
