@@ -1,7 +1,7 @@
 'use strict';
 
-function log(m){
-    window.console.log("GOLDFISH:" + m);
+function log(f){
+    window.console.log("GOLDFISH:" + f());
 }
 
 export default {

@@ -36,6 +36,16 @@ export default class HeaderArea{
                 </li>);
         }
 
+        let userRef = application.property('user_ref', null);
+        if (userRef){
+            let name = userRef.property('first_name') + " " + userRef.property('last_name');
+            let link = userRef.ref;
+            menuitems.push(
+                <li key="user" className="pure-menu-item">
+                    <ApplicationLink classes={menuitemClasses} key="showuser" text={name} link={link} />
+                </li>);
+        }
+
         let html = (
             <div style={{background: '#1A1A1B'}} className="pure-menu pure-menu-horizontal">
                 <a className="pure-menu-heading" href="">Goldfish</a>

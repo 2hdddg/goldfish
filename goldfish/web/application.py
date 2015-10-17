@@ -78,11 +78,19 @@ def _response(context, result):
     return render_template('index.html', application=application_as_dict)
 
 
+def _default_page(context):
+    if context.is_authorized:
+        return build_resource_for.user_calendars(context)
+    else:
+        return build_resource_for.popular_calendars(context)
+
+
 @application.route('/', methods=['GET'])
 def index():
     context = get_context()
     with context.workunit:
-        application = build_resource_for.application(context)
+        current = _default_page(context)
+        application = build_resource_for.application(context, current=current)
         application_as_dict = _namedtuple_to_dict(application)
         if request.is_xhr:
             return jsonify(application_as_dict)

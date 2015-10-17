@@ -1,4 +1,4 @@
-from goldfish.web.resource import Resource, ResourceRef, ApplicationData, CalendarData, UserData, UserRefData
+from goldfish.web.resource import *
 from goldfish.web.action import Action, FormField
 
 
@@ -36,9 +36,6 @@ def application(context, current=None):
     data = None
     current_url = current.ref if current else None
 
-    if current:
-        embedded[current.ref] = current
-
     if context.is_authorized:
         actions['logout'] = _logout_action()
         user = user_ref(context, context.user)
@@ -47,6 +44,33 @@ def application(context, current=None):
         actions['login'] = _login_action()
         links['userTemplate'] = '/user/template'
         data = ApplicationData(user_ref=None, current_url=current_url)
+
+    if current:
+        embedded[current.ref] = current
+
+    return Resource(
+        ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
+
+
+def popular_calendars(context):
+    ref = '/calendars/popular'
+    cls = 'GlobalCalendars'
+    links = {}
+    actions = {}
+    embedded = {}
+    data = PopularCalendarsData()
+
+    return Resource(
+        ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
+
+
+def user_calendars(context):
+    ref = '/user/' + context.user.id + "/calendars"
+    cls = 'UserCalendars'
+    links = {}
+    actions = {}
+    embedded = {}
+    data = UserCalendarsData()
 
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)

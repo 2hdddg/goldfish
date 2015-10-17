@@ -26,7 +26,13 @@ export default class Resource {
     }
 
     property(name, dflt){
-        return get_property(this._json, name, dflt);
+        return get_property(
+            {
+                json: this._json,
+                name,
+                dflt,
+                factory: this._factory
+            });
     }
 
     getAction(name){
@@ -56,7 +62,7 @@ export default class Resource {
         // Update my own state
         if (data.json){
             this._json = data.json;
-            log.info("Updated resource " + this._repr() + " with fresh json.");
+            log.info(() => "Updated resource " + this._repr() + " with fresh json.");
         }
 
         // Notify all my subscribers
@@ -67,7 +73,7 @@ export default class Resource {
     subscribe(name, callback){
         if (!this._syncing){
             this._syncing = this._sync.start(this, this._onSyncCallback);
-            log.info("Registered resource " + this._repr() + " for sync.");
+            log.info(() => "Registered resource " + this._repr() + " for sync.");
         }
 
         if (!this._subscriptions){
@@ -75,7 +81,7 @@ export default class Resource {
         }
 
         return this._subscriptions.add(name, eventData => {
-            log.info("Got event '" + name + "' on " + this._repr() + ", passing on...");
+            log.info(() => "Got event '" + name + "' on " + this._repr() + ", passing on...");
             callback(name, eventData);
         });
     }
@@ -85,7 +91,7 @@ export default class Resource {
         if (this._subscriptions.empty()){
             this._syncing.stop();
             this._syncing = null;
-            log.info("Unregistered resource " + this._repr() + " for sync.");
+            log.info(() => "Unregistered resource " + this._repr() + " for sync.");
         }
     }
 

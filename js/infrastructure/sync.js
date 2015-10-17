@@ -16,7 +16,7 @@ export default class Sync{
                 events: actionResponse.getEventsFromRef(ref),
                 json: actionResponse.getEmbeddedFromRef(ref)
             };
-            log.info("Publishing action response for " + ref + " " +
+            log.info(() => "Publishing action response for " + ref + " " +
                 (data.json ? "with data" : "without data") +
                 " and " +
                 (data.events && data.events.length ? ("events:" + data.events) : "no events"));

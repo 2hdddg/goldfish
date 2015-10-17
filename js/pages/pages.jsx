@@ -48,3 +48,17 @@ export class UserTemplate extends React.Component {
             <div>{html}<span>{this.state.message}</span></div>);
     }
 }
+
+export class GlobalCalendars extends React.Component {
+    render(){
+        return (
+            <div>List of global calendars</div>);
+    }
+}
+
+export class UserCalendars extends React.Component {
+    render(){
+        return (
+            <div>List of users calendars</div>);
+    }
+}

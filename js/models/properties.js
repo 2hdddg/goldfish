@@ -1,7 +1,9 @@
 'use strict';
 
-function get_property(json, name, dflt){
-    let val = this._json.data[name];
+export function get_property(params){
+    let {json, name, dflt, factory} = params;
+
+    let val = json.data[name];
     if (val === undefined){
         if (dflt === undefined){
             throw "Unknown property " + name;
@@ -9,8 +11,9 @@ function get_property(json, name, dflt){
         return def;
     }
 
-    // If property is object, use object factory to
-    // initiate
+    if (val !== null && typeof val === 'object'){
+        return factory.createFromJson(val);
+    }
 
     return val;
 }

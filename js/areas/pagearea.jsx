@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import log from '../infrastructure/log';
 import * as pages from '../pages/pages';
 
 export default class PageArea{
@@ -16,8 +17,15 @@ export default class PageArea{
     _render(resource){
         let cls = resource.cls;
         let pageCtor = pages[cls];
+
+        if (!pageCtor){
+            throw "Unable to find pagearea view for: " + cls;
+        }
+
         let pageFactory = React.createFactory(pageCtor);
         let page = pageFactory({resource});
+
+        log.info(() => "Rendering view in pagearea for " + cls);
 
         return page;
     }

@@ -62,3 +62,7 @@ UserRefData = namedtuple('UserRefData', [
     'first_name',
     'last_name'
 ])
+
+PopularCalendarsData = namedtuple('PopularCalendarsData', [])
+
+UserCalendarsData = namedtuple('UserCalendarsData', [])

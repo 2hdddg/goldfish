@@ -1,6 +1,7 @@
 'use strict';
 
 import 'whatwg-fetch';
+import log from './log';
 
 function _checkStatus(response){
     if (response.status >= 200 && response.status < 300){
@@ -13,6 +14,7 @@ function _checkStatus(response){
 
 class Server{
     getJson(url){
+        log.info(() => "Getting " + url + " from server");
         return fetch(url, {
                 credentials: 'same-origin',
                 headers: {
@@ -27,6 +29,7 @@ class Server{
     }
 
     postJson(url, json){
+        log.info(() => "Posting data to server at " + url);
         let body = JSON.stringify(json);
 
         return fetch(url, {
