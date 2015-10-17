@@ -1,4 +1,4 @@
-from goldfish.web.resource import Resource, ApplicationData, CalendarData, UserData, UserRef, ApplicationRef
+from goldfish.web.resource import Resource, ResourceRef, ApplicationData, CalendarData, UserData, UserRefData
 from goldfish.web.action import Action, FormField
 
 
@@ -53,7 +53,7 @@ def application(context, current=None):
 
 
 def application_ref(context):
-    return ApplicationRef(ref='/application', cls="ApplicationRef")
+    return ResourceRef(ref='/application', cls="Ref", refcls="Application", data=None)
 
 
 def calendar(context, calendar):
@@ -96,7 +96,7 @@ def user_template(context):
 
 def user_ref(context, user):
     ref = '/user/%s' % user.id
-    cls = 'UserRef'
+    data = UserRefData(first_name=user.first_name, last_name=user.last_name)
 
-    return UserRef(
-        ref=ref, cls=cls, first_name=user.first_name, last_name=user.last_name)
+    return ResourceRef(
+        ref=ref, cls="Ref", refcls="User", data=data)

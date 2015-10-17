@@ -14,18 +14,18 @@ export default class Sync{
         references.forEach(ref => {
             let data = {
                 events: actionResponse.getEventsFromRef(ref),
-                modelJson: actionResponse.getEmbeddedFromRef(ref)
+                json: actionResponse.getEmbeddedFromRef(ref)
             };
             log.info("Publishing action response for " + ref + " " +
-                (data.modelJson ? "with data" : "without data") +
+                (data.json ? "with data" : "without data") +
                 " and " +
                 (data.events && data.events.length ? ("events:" + data.events) : "no events"));
             this._subscriptions.publish(ref, data);
         });
     }
 
-    start(model, callback){
-        let ref = model.ref;
+    start(resource, callback){
+        let ref = resource.ref;
         let subscription = this._subscriptions.add(ref, (eventname, eventdata) => {
             callback(eventdata);
         });

@@ -20,23 +20,12 @@ from collections import namedtuple
             next: 'url/to/load/more/data',
         },
         actions:
-            create: {
+            create: [{
                 ref: '/whatever/create',
-                form: {
-                    first_name: {
-                        value: '',
-                        type: number/email/text/password/specific
-                    },
-                    password: {
-                    }
-                }
-            }
+                cls: 'xx'
+            }]
         },
         embedded: {
-            // Named entry
-            'current': {
-                // a resource as well
-            },
             'url/to/something/refered/to/in/link/or/data': {
                 // a resource as well
             }
@@ -53,6 +42,13 @@ Resource = namedtuple('Resource', [
     'embedded'
 ])
 
+ResourceRef = namedtuple('ResourceRef', [
+    'ref',
+    'cls',
+    'refcls',
+    'data'
+])
+
 ApplicationData = namedtuple('ApplicationData', ['user_ref', 'current_url'])
 
 CalendarData = namedtuple('CalendarData', [])
@@ -62,14 +58,7 @@ UserData = namedtuple('UserData', [
     'last_name'
 ])
 
-UserRef = namedtuple('UserRef', [
-    'ref',
-    'cls',
+UserRefData = namedtuple('UserRefData', [
     'first_name',
     'last_name'
-])
-
-ApplicationRef = namedtuple('ApplicationRef', [
-    'ref',
-    'cls',
 ])

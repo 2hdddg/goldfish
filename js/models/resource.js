@@ -4,8 +4,9 @@ import Subscriptions from '../infrastructure/subscriptions.js';
 import log from '../infrastructure/log.js';
 import Action from './action';
 import ActionResponse from './actionresponse';
+import { get_property } from './properties';
 
-export default class Model {
+export default class Resource {
     constructor(json, server, factory, sync){
         this._server = server;
         this._json = json;
@@ -22,6 +23,10 @@ export default class Model {
 
     get cls(){
         return this._json.cls;
+    }
+
+    property(name, dflt){
+        return get_property(this._json, name, dflt);
     }
 
     getAction(name){
@@ -49,9 +54,9 @@ export default class Model {
 
     _onSyncCallback(data){
         // Update my own state
-        if (data.modelJson){
-            this._json = data.modelJson;
-            log.info("Updated model " + this._repr() + " with fresh json.");
+        if (data.json){
+            this._json = data.json;
+            log.info("Updated resource " + this._repr() + " with fresh json.");
         }
 
         // Notify all my subscribers
@@ -62,7 +67,7 @@ export default class Model {
     subscribe(name, callback){
         if (!this._syncing){
             this._syncing = this._sync.start(this, this._onSyncCallback);
-            log.info("Registered model " + this._repr() + " for sync.");
+            log.info("Registered resource " + this._repr() + " for sync.");
         }
 
         if (!this._subscriptions){
@@ -80,7 +85,7 @@ export default class Model {
         if (this._subscriptions.empty()){
             this._syncing.stop();
             this._syncing = null;
-            log.info("Unregistered model " + this._repr() + " for sync.");
+            log.info("Unregistered resource " + this._repr() + " for sync.");
         }
     }
 

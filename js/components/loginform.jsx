@@ -20,7 +20,7 @@ export default class LoginForm extends React.Component{
         this.setState({isBusy: true});
 
         loginAction.submit(data)
-            .then(model => {
+            .then(resource => {
                 this.setState({isBusy: false, message: ''});
                 let requestClose = this.props.requestClose;
                 if (requestClose){

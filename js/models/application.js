@@ -1,8 +1,8 @@
 'use strict';
 
-import Model from './model'
+import Resource from './resource'
 
-export default class Application extends Model {
+export default class Application extends Resource {
 
     constructor(json, server, factory, sync){
         super(json, server, factory, sync);
@@ -12,7 +12,7 @@ export default class Application extends Model {
     get current(){
         if (!this._current){
             // Check if backend has supplied us
-            // with a current model
+            // with a current resource
             let current_url = this._json.data.current_url;
             if (current_url){
                 let embedded = this._json.embedded[current_url];
@@ -26,7 +26,7 @@ export default class Application extends Model {
         // Special case happens when trying to
         // set application as current, this actually
         // means that we should use the initial embedded
-        // model as current (if there is one)
+        // resource as current (if there is one)
         if (json.cls === this._json.cls){
             this._current = null;
         }

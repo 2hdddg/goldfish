@@ -10,22 +10,22 @@ export default class PageArea{
     }
 
     _renderAnonymous(){
-        return (<span>No model... anonym</span>);
+        return (<span>Nothing to show... anonym</span>);
     }
 
-    _render(model){
-        let cls = model.cls;
+    _render(resource){
+        let cls = resource.cls;
         let pageCtor = pages[cls];
         let pageFactory = React.createFactory(pageCtor);
-        let page = pageFactory({model});
+        let page = pageFactory({resource});
 
         return page;
     }
 
     render(){
-        let model = this._application.current;
-        let html = model ?
-            this._render(model) : this._renderAnonymous();
+        let resource = this._application.current;
+        let html = resource ?
+            this._render(resource) : this._renderAnonymous();
 
         React.render(
             html,

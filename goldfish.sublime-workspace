@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"Resour",
+				"ResourceRef"
+			],
+			[
+				"Resou",
+				"ResourceRef	statement"
+			],
+			[
+				"sub",
+				"subscription"
+			],
+			[
+				"subs",
+				"subscribers_left"
+			],
+			[
+				"event",
+				"eventName"
+			],
+			[
 				"ref",
 				"references"
 			],
@@ -52,10 +72,6 @@
 				"modelJson"
 			],
 			[
-				"sub",
-				"subscription"
-			],
-			[
 				"su",
 				"subscriptions"
 			],
@@ -90,10 +106,6 @@
 			[
 				"aff",
 				"affected_models"
-			],
-			[
-				"subs",
-				"subscribers"
 			],
 			[
 				"for",
@@ -239,134 +251,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "js/models/model.js",
-			"settings":
-			{
-				"buffer_size": 1971,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/models/actionresponse.js",
-			"settings":
-			{
-				"buffer_size": 943,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/infrastructure/subscriptions.js",
-			"settings":
-			{
-				"buffer_size": 1188,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/infrastructure/sync.js",
-			"settings":
-			{
-				"buffer_size": 908,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/infrastructure/log.js",
-			"settings":
-			{
-				"buffer_size": 156,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/index.jsx",
-			"settings":
-			{
-				"buffer_size": 1189,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/models/application.js",
-			"settings":
-			{
-				"buffer_size": 1048,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/components/loginform.jsx",
-			"settings":
-			{
-				"buffer_size": 2146,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/areas/pagearea.jsx",
-			"settings":
-			{
-				"buffer_size": 768,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/pages/pages.jsx",
-			"settings":
-			{
-				"buffer_size": 1476,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "goldfish/web/action.py",
-			"settings":
-			{
-				"buffer_size": 268,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "goldfish/web/buildactionresponse.py",
-			"settings":
-			{
-				"buffer_size": 1146,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "goldfish/web/buildresource.py",
-			"settings":
-			{
-				"buffer_size": 2751,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "goldfish/web/application.py",
-			"settings":
-			{
-				"buffer_size": 4935,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "goldfish/web/resource.py",
-			"settings":
-			{
-				"buffer_size": 1574,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/infrastructure/server.js",
-			"settings":
-			{
-				"buffer_size": 1304,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -375,12 +259,12 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 0.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 467.0
 	},
 	"console":
 	{
@@ -405,6 +289,7 @@
 		"/Users/pw/code/goldfish/goldfish/core",
 		"/Users/pw/code/goldfish/goldfish/web",
 		"/Users/pw/code/goldfish/js",
+		"/Users/pw/code/goldfish/js/areas",
 		"/Users/pw/code/goldfish/js/components",
 		"/Users/pw/code/goldfish/js/infrastructure",
 		"/Users/pw/code/goldfish/js/models",
@@ -414,28 +299,36 @@
 	],
 	"file_history":
 	[
-		"/Users/pw/code/goldfish/js/models/modelfactory.js",
-		"/Users/pw/code/goldfish/js/models/models.js",
-		"/Users/pw/code/goldfish/goldfish/web/application.py",
+		"/Users/pw/code/goldfish/js/models/resourceref.js",
+		"/Users/pw/code/goldfish/js/models/resource.js",
+		"/Users/pw/code/goldfish/js/models/properties.js",
+		"/Users/pw/code/goldfish/js/areas/headerarea.jsx",
+		"/Users/pw/code/goldfish/js/areas/pagearea.jsx",
+		"/Users/pw/code/goldfish/js/pages/pages.jsx",
+		"/Users/pw/code/goldfish/goldfish/web/buildresource.py",
 		"/Users/pw/code/goldfish/goldfish/web/buildactionresponse.py",
 		"/Users/pw/code/goldfish/goldfish/web/resource.py",
+		"/Users/pw/code/goldfish/js/models/modelfactory.js",
+		"/Users/pw/code/goldfish/js/index.jsx",
+		"/Users/pw/code/goldfish/js/models/model.js",
+		"/Users/pw/code/goldfish/js/models/application.js",
+		"/Users/pw/code/goldfish/js/infrastructure/sync.js",
+		"/Users/pw/code/goldfish/js/components/loginform.jsx",
+		"/Users/pw/code/goldfish/js/models/action.js",
+		"/Users/pw/code/goldfish/goldfish/web/application.py",
+		"/Users/pw/code/goldfish/js/infrastructure/server.js",
 		"/Users/pw/code/goldfish/goldfish/web/action.py",
+		"/Users/pw/code/goldfish/js/export.js",
+		"/Users/pw/code/goldfish/js/infrastructure/log.js",
+		"/Users/pw/code/goldfish/js/infrastructure/subscriptions.js",
+		"/Users/pw/code/goldfish/js/models/actionresponse.js",
+		"/Users/pw/code/goldfish/js/components/actionform.jsx",
+		"/Users/pw/code/goldfish/js/models/models.js",
 		"/Users/pw/code/goldfish/js/components/applicationlink.jsx",
 		"/Users/pw/code/goldfish/js/infrastructure/currentpage.js",
-		"/Users/pw/code/goldfish/js/components/loginform.jsx",
-		"/Users/pw/code/goldfish/js/index.jsx",
-		"/Users/pw/code/goldfish/js/models/application.js",
-		"/Users/pw/code/goldfish/js/models/action.js",
-		"/Users/pw/code/goldfish/js/models/model.js",
-		"/Users/pw/code/goldfish/js/pages/pages.jsx",
-		"/Users/pw/code/goldfish/js/infrastructure/subscriptions.js",
-		"/Users/pw/code/goldfish/goldfish/web/buildresource.py",
-		"/Users/pw/code/goldfish/js/areas/headerarea.jsx",
-		"/Users/pw/code/goldfish/js/components/actionform.jsx",
 		"/Users/pw/code/goldfish/goldfish/core/command.py",
 		"/Users/pw/code/goldfish/js/components/modallink.jsx",
 		"/Users/pw/code/goldfish/static/goldfish.js",
-		"/Users/pw/code/goldfish/js/areas/pagearea.jsx",
 		"/Users/pw/code/goldfish/static/goldfish.css",
 		"/Users/pw/code/goldfish/templates/index.html",
 		"/Users/pw/code/goldfish/static/typicons/typicons.min.css",
@@ -447,7 +340,6 @@
 		"/Users/pw/code/hg-trunk/build_mac/eosdb/Makefile",
 		"/Users/pw/code/goldfish/js/areas/accountarea.jsx",
 		"/Users/pw/code/goldfish/js/components/login.jsx",
-		"/Users/pw/code/goldfish/js/infrastructure/server.js",
 		"/Users/pw/code/goldfish/js/areas/contentarea.jsx",
 		"/Users/pw/code/goldfish/.gitignore",
 		"/Users/pw/code/goldfish/goldfish/core/__init__.py",
@@ -459,7 +351,6 @@
 		"/Users/pw/code/goldfish/webstart.py",
 		"/Users/pw/code/goldfish/goldfish/core/query.py",
 		"/Users/pw/code/goldfish/goldfish/core/db.py",
-		"/Users/pw/code/goldfish/js/export.js",
 		"/Users/pw/code/goldfish/goldfish/core/entity.py",
 		"/Users/pw/Library/Application Support/Sublime Text 3/Packages/Sublime-JSHint/JSHint.sublime-settings",
 		"/Users/pw/Library/Application Support/Sublime Text 3/Packages/Sublime-JSHint/.jshintrc",
@@ -496,6 +387,24 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"pages",
+			"UserTemplate",
+			"<UserT",
+			"get_pro",
+			"model",
+			"Model",
+			"factory.",
+			"createFromJson",
+			"application_ref",
+			"ApplicationRef",
+			"debugg",
+			"Got even",
+			"debugg",
+			"for (let",
+			"debugger",
+			"onSyn",
+			"onSync",
+			"let subscription = this._subscriptions.add(r",
 			"getLink",
 			"models'",
 			"models",
@@ -597,484 +506,8 @@
 	"groups":
 	[
 		{
-			"selected": 15,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "js/models/model.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1971,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								188,
-								188
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "js/models/actionresponse.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 943,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								153,
-								153
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/infrastructure/subscriptions.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1188,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								70,
-								70
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "js/infrastructure/sync.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 908,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								566,
-								566
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "js/infrastructure/log.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 156,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								153,
-								153
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "js/index.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1189,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								767,
-								767
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/babel-sublime/JavaScript (Babel).tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "js/models/application.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1048,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								579,
-								579
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "js/components/loginform.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2146,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								557,
-								557
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/babel-sublime/JavaScript (Babel).tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "js/areas/pagearea.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 768,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								406,
-								406
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/babel-sublime/JavaScript (Babel).tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "js/pages/pages.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1476,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								805,
-								805
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/babel-sublime/JavaScript (Babel).tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "goldfish/web/action.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 268,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								250,
-								250
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "goldfish/web/buildactionresponse.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1146,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								665,
-								665
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "goldfish/web/buildresource.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2751,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1317,
-								1317
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 207.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "goldfish/web/application.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4935,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1080,
-								1080
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "goldfish/web/resource.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1574,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1191,
-								1191
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "js/infrastructure/server.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1304,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								818,
-								818
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1127,6 +560,50 @@
 		"selected_items":
 		[
 			[
+				"buildac",
+				"goldfish/web/buildactionresponse.py"
+			],
+			[
+				"resource.p",
+				"goldfish/web/resource.py"
+			],
+			[
+				"buildre",
+				"goldfish/web/buildresource.py"
+			],
+			[
+				"modelfa",
+				"js/models/modelfactory.js"
+			],
+			[
+				"prope",
+				"js/models/properties.js"
+			],
+			[
+				"resour",
+				"js/models/resource.js"
+			],
+			[
+				"resourcere",
+				"js/models/resourceref.js"
+			],
+			[
+				"ind",
+				"js/index.jsx"
+			],
+			[
+				"mod",
+				"js/models/model.js"
+			],
+			[
+				"model.",
+				"js/models/model.js"
+			],
+			[
+				"appli",
+				"js/models/application.js"
+			],
+			[
 				"model",
 				"js/models/model.js"
 			],
@@ -1137,14 +614,6 @@
 			[
 				"sy",
 				"js/infrastructure/sync.js"
-			],
-			[
-				"modelfa",
-				"js/models/modelfactory.js"
-			],
-			[
-				"ind",
-				"js/index.jsx"
 			],
 			[
 				"subsc",
@@ -1187,10 +656,6 @@
 				"js/pages/pages.jsx"
 			],
 			[
-				"appli",
-				"goldfish/web/application.py"
-			],
-			[
 				"",
 				"js/models/model.js"
 			],
@@ -1217,10 +682,6 @@
 			[
 				"command",
 				"goldfish/core/command.py"
-			],
-			[
-				"buildre",
-				"goldfish/web/buildresource.py"
 			],
 			[
 				"login",

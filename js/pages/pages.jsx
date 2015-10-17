@@ -16,7 +16,7 @@ export class UserTemplate extends React.Component {
         this._submit = this._submit.bind(this);
     }
     _submit(event){
-        let userTemplate = this.props.model;
+        let userTemplate = this.props.resource;
         let createAction = userTemplate.getAction('create');
         let data = this._form.getData(createAction, this);
 
@@ -33,7 +33,7 @@ export class UserTemplate extends React.Component {
     }
     render(){
         let html;
-        let userTemplate = this.props.model;
+        let userTemplate = this.props.resource;
 
         if (this.state.isBusy){
             html = (<span>Busy</span>);
