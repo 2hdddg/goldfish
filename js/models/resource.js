@@ -42,7 +42,7 @@ export default class Resource {
         }
 
         let onSubmit = (actionJson) => {
-            let actionResponse = new ActionResponse(actionJson);
+            let actionResponse = new ActionResponse(actionJson, this._factory);
             this._sync.onAction(actionResponse);
             return actionResponse;
         };
@@ -60,8 +60,8 @@ export default class Resource {
 
     _onSyncCallback(data){
         // Update my own state
-        if (data.json){
-            this._json = data.json;
+        if (data.model){
+            this._json = data.model._json;
             log.info(() => "Updated resource " + this._repr() + " with fresh json.");
         }
 

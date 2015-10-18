@@ -1,8 +1,9 @@
 'use strict';
 
 export default class ActionResponse{
-    constructor(json){
+    constructor(json, factory){
         this._json = json;
+        this._factory = factory;
     }
 
     get references(){
@@ -18,7 +19,12 @@ export default class ActionResponse{
     }
 
     getEmbeddedFromRef(ref){
-        return this._json.embedded[ref];
+        let json = this._json.embedded[ref];
+        if (json){
+            let model = this._factory.createFromJson(json);
+            return model;
+        }
+        return;
     }
 
     getEventsFromRef(ref){
@@ -32,7 +38,15 @@ export default class ActionResponse{
         return events;
     }
 
-    getAffectedFromEvent(eventName){
-        return this._json.events[eventName] || [];
+    getEmbeddedFromEvent(eventName){
+        let affected = this._json.events[eventName] || [];
+        let embedded = [];
+        affected.forEach(repr => {
+            let resource = this.getEmbeddedFromRef(repr.ref);
+            if (resource){
+                embedded.push(resource);
+            }
+        });
+        return embedded;
     }
 }

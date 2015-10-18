@@ -25,10 +25,11 @@ export class UserTemplate extends React.Component {
         createAction.submit(data)
             .then(actionResponse => {
                 this.setState({isBusy: false, message: ''});
-                let affected = actionResponse.getAffectedFromEvent('logged_in');
-                let userRef = affected.filter(x => x.refcls === 'User')[0];
-                let user = actionResponse.getEmbeddedFromRef(userRef.ref);
+
+                let created = actionResponse.getEmbeddedFromEvent('created');
+                let user = created.filter(x => x.cls === 'User')[0];
                 let calendars_link = user.getLink('calendars');
+
                 open(calendars_link);
             })
             .catch(error => {

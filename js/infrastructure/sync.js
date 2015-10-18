@@ -14,10 +14,10 @@ export default class Sync{
         references.forEach(ref => {
             let data = {
                 events: actionResponse.getEventsFromRef(ref),
-                json: actionResponse.getEmbeddedFromRef(ref)
+                model: actionResponse.getEmbeddedFromRef(ref)
             };
             log.info(() => "Publishing action response for " + ref + " " +
-                (data.json ? "with data" : "without data") +
+                (data.model ? "with model" : "without model") +
                 " and " +
                 (data.events && data.events.length ? ("events:" + data.events) : "no events"));
             this._subscriptions.publish(ref, data);
