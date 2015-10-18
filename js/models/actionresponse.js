@@ -31,4 +31,8 @@ export default class ActionResponse{
         }
         return events;
     }
+
+    getAffectedFromEvent(eventName){
+        return this._json.events[eventName] || [];
+    }
 }

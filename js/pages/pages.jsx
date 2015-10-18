@@ -23,8 +23,13 @@ export class UserTemplate extends React.Component {
         this.setState({isBusy: true, message: ''});
 
         createAction.submit(data)
-            .then(action => {
+            .then(actionResponse => {
                 this.setState({isBusy: false, message: ''});
+                let affected = actionResponse.getAffectedFromEvent('logged_in');
+                let userRef = affected.filter(x => x.refcls === 'User')[0];
+                let user = actionResponse.getEmbeddedFromRef(userRef.ref);
+                let calendars_link = user.getLink('calendars');
+                open(calendars_link);
             })
             .catch(error => {
                 this.setState({isBusy: false, message: 'Unknown error'});

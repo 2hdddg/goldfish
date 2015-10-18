@@ -17,13 +17,19 @@ export default function start(applicationJson){
     let headerArea = new HeaderArea(application, document.getElementById('account'));
     let pageArea = new PageArea(application, document.getElementById('content'));
 
-    setCurrentPageCallbacks(url => {
-        server
-            .getJson(url)
-            .then(json => {
-                application.current = json;
-                pageArea.render();
-            });
+    setCurrentPageCallbacks((url, resource) => {
+        if (resource){
+            application.current = resource;
+            pageArea.render();
+        }
+        else{
+            server
+                .getJson(url)
+                .then(json => {
+                    application.current = json;
+                    pageArea.render();
+                });
+        }
     });
 
     application.subscribe('changed', (name, eventData) => {

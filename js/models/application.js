@@ -13,9 +13,9 @@ export default class Application extends Resource {
         if (!this._current){
             // Check if backend has supplied us
             // with a current resource
-            let current_url = this._json.data.current_url;
-            if (current_url){
-                let embedded = this._json.embedded[current_url];
+            let current_link = this._json.data.current_link;
+            if (current_link){
+                let embedded = this._json.embedded[current_link];
                 this._current = this._factory.createFromJson(embedded);
             }
         }

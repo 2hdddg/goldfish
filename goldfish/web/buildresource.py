@@ -34,16 +34,16 @@ def application(context, current=None):
     actions = {}
     embedded = {}
     data = None
-    current_url = current.ref if current else None
+    current_link = current.ref if current else None
 
     if context.is_authorized:
         actions['logout'] = _logout_action()
-        user = user_ref(context, context.user)
-        data = ApplicationData(user_ref=user, current_url=current_url)
+        user = user_repr(context, context.user)
+        data = ApplicationData(user_repr=user, current_link=current_link)
     else:
         actions['login'] = _login_action()
         links['userTemplate'] = '/user/template'
-        data = ApplicationData(user_ref=None, current_url=current_url)
+        data = ApplicationData(user_repr=None, current_link=current_link)
 
     if current:
         embedded[current.ref] = current
@@ -64,8 +64,12 @@ def popular_calendars(context):
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
 
 
+def _link_to_user_calendars(user):
+    return '/user/' + str(user.id) + "/calendars"
+
+
 def user_calendars(context):
-    ref = '/user/' + context.user.id + "/calendars"
+    ref = _link_to_user_calendars(context.user)
     cls = 'UserCalendars'
     links = {}
     actions = {}
@@ -76,8 +80,8 @@ def user_calendars(context):
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
 
 
-def application_ref(context):
-    return ResourceRef(ref='/application', cls="Ref", refcls="Application", data=None)
+def application_repr(context):
+    return Representation(ref='/application', cls="Representation", refcls="Application", data=None)
 
 
 def calendar(context, calendar):
@@ -101,6 +105,11 @@ def user(context, user):
     data = UserData(
         first_name=user.first_name, last_name=user.last_name)
 
+    user_same_as_logged_in = user.id == context.user.id
+
+    if user_same_as_logged_in:
+        links['calendars'] = _link_to_user_calendars(user)
+
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
 
@@ -118,9 +127,9 @@ def user_template(context):
         ref=ref, cls=cls, data=None, links=links, actions=actions, embedded=embedded)
 
 
-def user_ref(context, user):
+def user_repr(context, user):
     ref = '/user/%s' % user.id
-    data = UserRefData(first_name=user.first_name, last_name=user.last_name)
+    data = UserReprData(first_name=user.first_name, last_name=user.last_name)
 
-    return ResourceRef(
-        ref=ref, cls="Ref", refcls="User", data=data)
+    return Representation(
+        ref=ref, cls="Representation", refcls="User", data=data)

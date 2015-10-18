@@ -2,11 +2,12 @@ from collections import namedtuple
 
 
 """
-    Resources
-    Represents the current state of a 'thing'
+    The current state of a 'thing'
     Based on current state and who is asking, the representation also
     contains what actions that can be performed on it and what
     other related resources that can be reached.
+    The data can contain simple properties, references to
+    resources or representations of resources
 
     Example:
 
@@ -32,7 +33,6 @@ from collections import namedtuple
         }
     }
 """
-
 Resource = namedtuple('Resource', [
     'ref',
     'cls',
@@ -42,14 +42,18 @@ Resource = namedtuple('Resource', [
     'embedded'
 ])
 
-ResourceRef = namedtuple('ResourceRef', [
+""" A representation of a resource, the information
+    necessary to represent a resource for a user but
+    still not the complete resource.
+"""
+Representation = namedtuple('Representation', [
     'ref',
     'cls',
     'refcls',
     'data'
 ])
 
-ApplicationData = namedtuple('ApplicationData', ['user_ref', 'current_url'])
+ApplicationData = namedtuple('ApplicationData', ['user_repr', 'current_link'])
 
 CalendarData = namedtuple('CalendarData', [])
 
@@ -58,7 +62,7 @@ UserData = namedtuple('UserData', [
     'last_name'
 ])
 
-UserRefData = namedtuple('UserRefData', [
+UserReprData = namedtuple('UserReprData', [
     'first_name',
     'last_name'
 ])

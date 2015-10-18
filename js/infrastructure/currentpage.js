@@ -8,10 +8,26 @@ export function setCallbacks(onOpen){
     _onOpen = onOpen;
 }
 
-export function open(url){
-    log.info(() => "Navigating to " + url);
+export function open(urlOrModel){
+    let url, resource;
+
+    if (typeof urlOrModel === 'string'){
+        url = urlOrModel;
+    }
+    else if (urlOrModel.ref && urlOrModel.cls){
+        url = urlOrModel.ref;
+        if (!urlOrModel.refcls){
+            resource = urlOrModel;
+        }
+    }
+
+    if (!url){
+        throw "Can not determine url from " + urlOrModel;
+    }
+
+    log.info(() => "Navigating to " + url + (resource ? ", need no request already got data" : ""));
     window.history.pushState(null, null, url);
-    _onOpen(url);
+    _onOpen(url, resource);
 }
 
 export function state(s){

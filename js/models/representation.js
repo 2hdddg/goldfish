@@ -2,7 +2,7 @@
 
 import { get_property } from './properties';
 
-export default class ResourceRef {
+export default class Representation {
     constructor(json, server, factory, sync){
         this._json = json;
         this._factory = factory;
