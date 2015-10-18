@@ -1,5 +1,6 @@
 from goldfish.web.resource import *
 from goldfish.web.action import Action, FormField
+import goldfish.web.buildrepresentation as build_representation_for
 
 
 def _logout_action():
@@ -38,7 +39,7 @@ def application(context, current=None):
 
     if context.is_authorized:
         actions['logout'] = _logout_action()
-        user = user_repr(context, context.user)
+        user = build_representation_for.user(context, context.user)
         data = ApplicationData(user_repr=user, current_link=current_link)
     else:
         actions['login'] = _login_action()
@@ -68,7 +69,7 @@ def _link_to_user_calendars(user):
     return '/user/' + str(user.id) + "/calendars"
 
 
-def user_calendars(context):
+def user_calendars(context, calendars):
     ref = _link_to_user_calendars(context.user)
     cls = 'UserCalendars'
     links = {}
@@ -78,10 +79,6 @@ def user_calendars(context):
 
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
-
-
-def application_repr(context):
-    return Representation(ref='/application', cls="Representation", refcls="Application", data=None)
 
 
 def calendar(context, calendar):
@@ -125,11 +122,3 @@ def user_template(context):
 
     return Resource(
         ref=ref, cls=cls, data=None, links=links, actions=actions, embedded=embedded)
-
-
-def user_repr(context, user):
-    ref = '/user/%s' % user.id
-    data = UserReprData(first_name=user.first_name, last_name=user.last_name)
-
-    return Representation(
-        ref=ref, cls="Representation", refcls="User", data=data)

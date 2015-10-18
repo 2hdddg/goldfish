@@ -42,16 +42,6 @@ Resource = namedtuple('Resource', [
     'embedded'
 ])
 
-""" A representation of a resource, the information
-    necessary to represent a resource for a user but
-    still not the complete resource.
-"""
-Representation = namedtuple('Representation', [
-    'ref',
-    'cls',
-    'refcls',
-    'data'
-])
 
 ApplicationData = namedtuple('ApplicationData', ['user_repr', 'current_link'])
 
@@ -62,11 +52,9 @@ UserData = namedtuple('UserData', [
     'last_name'
 ])
 
-UserReprData = namedtuple('UserReprData', [
-    'first_name',
-    'last_name'
-])
 
 PopularCalendarsData = namedtuple('PopularCalendarsData', [])
 
-UserCalendarsData = namedtuple('UserCalendarsData', [])
+UserCalendarsData = namedtuple('UserCalendarsData', [
+    'list'
+])

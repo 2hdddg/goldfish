@@ -1,11 +1,12 @@
 from goldfish.web.action import ActionResponse
 import goldfish.web.buildresource as build_resource_for
+import goldfish.web.buildrepresentation as build_representation_for
 
 
 def logged_in(context):
     application = build_resource_for.application(context)
     events = {
-        'changed': [build_resource_for.application_repr(context)],
+        'changed': [build_representation_for.application(context)],
         'logged_in': [application.data.user_repr]
     }
     embedded = {}
@@ -17,7 +18,7 @@ def logged_in(context):
 def created_user(context, user):
     user_resource = build_resource_for.user(context, user)
     events = {
-        'created': [build_resource_for.user_repr(context, user)]
+        'created': [build_representation_for.user(context, user)]
     }
     embedded = {}
     embedded[user_resource.ref] = user_resource
@@ -26,6 +27,6 @@ def created_user(context, user):
         application = build_resource_for.application(context)
         embedded[application.ref] = application
         events['logged_in'] = [application.data.user_repr]
-        events['changed'] = [build_resource_for.application_repr(context)]
+        events['changed'] = [build_representation_for.application(context)]
     response = ActionResponse(events=events, embedded=embedded)
     return response
