@@ -32,11 +32,13 @@ export default function start(applicationJson){
         }
     });
 
-    application.subscribe('changed', (name, eventData) => {
+    let rerender = () => {
         headerArea.render();
         pageArea.render();
-    });
+    };
 
-    headerArea.render();
-    pageArea.render();
+    application.subscribe('logged_in', rerender);
+    application.subscribe('logged_out', rerender);
+
+    rerender();
 }

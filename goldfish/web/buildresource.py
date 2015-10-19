@@ -69,13 +69,13 @@ def _link_to_user_calendars(user):
     return '/user/' + str(user.id) + "/calendars"
 
 
-def user_calendars(context, calendars):
-    ref = _link_to_user_calendars(context.user)
+def user_calendars(context, calendars, user):
+    ref = _link_to_user_calendars(user)
     cls = 'UserCalendars'
     links = {}
     actions = {}
     embedded = {}
-    data = UserCalendarsData()
+    data = UserCalendarsData(list=[])
 
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)

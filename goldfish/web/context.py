@@ -7,9 +7,11 @@ class Context(object):
         if user:
             self.is_authorized = True
             self._user = user
+            self._userid = user.id
         elif userid:
             self.is_authorized = True
             self._userid = userid
+            self._user = None
         else:
             self.is_authorized = False
 
@@ -24,3 +26,10 @@ class Context(object):
                 workunit, self._userid)
 
         return self._user
+
+    @property
+    def userid(self):
+        if not self.is_authorized:
+            raise "Unauthorized!"
+
+        return self._userid
