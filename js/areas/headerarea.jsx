@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import ApplicationLink from '../components/applicationlink';
+import PageLink from '../components/pagelink';
 import ModalLink from '../components/modallink';
 import LoginForm from '../components/loginform';
 
@@ -32,7 +32,7 @@ export default class HeaderArea{
         if (userTemplateLink){
             menuitems.push(
                 <li key="signup" className="pure-menu-item">
-                    <ApplicationLink classes={menuitemClasses} key="createuser" text="Sign Up" link={userTemplateLink} />
+                    <PageLink classes={menuitemClasses} key="createuser" text="Sign Up" link={userTemplateLink} />
                 </li>);
         }
 
@@ -42,7 +42,14 @@ export default class HeaderArea{
             let link = userRepr.ref;
             menuitems.push(
                 <li key="user" className="pure-menu-item">
-                    <ApplicationLink classes={menuitemClasses} key="showuser" text={name} link={link} />
+                    <PageLink classes={menuitemClasses} key="showuser" text={name} link={link} />
+                </li>);
+        }
+
+        if (application.hasAction('logout')){
+            menuitems.push(
+                <li key="login" className="pure-menu-item">
+                    <ActionLink classes={menuitemClasses} key="logout" text="Logout" actionhandler={this._logout} />
                 </li>);
         }
 
