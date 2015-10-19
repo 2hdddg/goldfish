@@ -3,6 +3,7 @@
 import React from 'react';
 import PageLink from '../components/pagelink';
 import ModalLink from '../components/modallink';
+import ActionLink from '../components/actionlink';
 import LoginForm from '../components/loginform';
 
 export default class HeaderArea{
@@ -10,10 +11,20 @@ export default class HeaderArea{
         this._application = application;
         this._atElement = atElement;
         this._getLoginForm = this._getLoginForm.bind(this);
+        this._logout = this._logout.bind(this);
     }
 
     _getLoginForm(requestClose){
         return <LoginForm application={this._application} requestClose={requestClose} />;
+    }
+
+    _logout(){
+        let logout = this._application.getAction('logout');
+        logout.submit({})
+            .then(actionResponse => {
+            })
+            .catch(error => {
+            });
     }
 
     render(){
