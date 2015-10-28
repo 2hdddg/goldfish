@@ -1,7 +1,9 @@
+from __future__ import absolute_import
+
 from flask import request
 
-from goldfish.core.infrastructure import WorkUnit
-from goldfish.web.context import Context
+from ..core.infrastructure import WorkUnit
+from .context import Context
 
 
 def _get_user_id():

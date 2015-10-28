@@ -1,6 +1,8 @@
-from goldfish.web.action import ActionResponse
-import goldfish.web.buildresource as build_resource_for
-import goldfish.web.buildrepresentation as build_representation_for
+from __future__ import absolute_import
+
+from .action import ActionResponse
+from . import buildresource as build_resource_for
+from . import buildrepresentation as build_representation_for
 
 
 def logged_in(context):

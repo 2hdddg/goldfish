@@ -1,4 +1,7 @@
-import db
+from __future__ import absolute_import
+
+
+from . import db
 
 
 class WorkUnit(object):

@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from collections import namedtuple
 
 """ A representation of a resource, the information

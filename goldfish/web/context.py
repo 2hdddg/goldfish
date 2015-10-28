@@ -1,4 +1,6 @@
-import goldfish.core.lookup as lookup
+from __future__ import absolute_import
+
+from ..core import lookup as lookup
 
 
 class Context(object):

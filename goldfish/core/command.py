@@ -1,5 +1,7 @@
+from __future__ import absolute_import
+
 from .entity import User, Calendar
-import query
+from . import query
 
 
 def create_user(workunit, first_name, last_name, email, password):

@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+
+
 def _dict_containing_namedtuples_to_dict(d):
     for k, v in d.iteritems():
         if isinstance(v, tuple):

@@ -1,4 +1,6 @@
-from goldfish.web.representation import *
+from __future__ import absolute_import
+
+from .representation import Representation, UserReprData
 
 
 def application(context):

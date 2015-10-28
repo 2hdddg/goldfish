@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 
 def get_user_by_email(workunit, email):
     for _, user in workunit.db.users.iteritems():

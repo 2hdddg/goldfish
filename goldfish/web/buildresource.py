@@ -1,6 +1,8 @@
-from goldfish.web.resource import *
-from goldfish.web.action import Action, FormField
-import goldfish.web.buildrepresentation as build_representation_for
+from __future__ import absolute_import
+
+from .resource import Resource, ApplicationData, UserData, CalendarData, PopularCalendarsData, UserCalendarsData
+from .action import Action, FormField
+from . import buildrepresentation as build_representation_for
 
 
 def _logout_action():
@@ -75,6 +77,7 @@ def user_calendars(context, calendars, user):
     links = {}
     actions = {}
     embedded = {}
+    calendars_repr = map()
     data = UserCalendarsData(list=[])
 
     return Resource(

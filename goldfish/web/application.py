@@ -1,15 +1,14 @@
 from __future__ import absolute_import
+
 from flask import Flask, jsonify, render_template, request, make_response
 
-import goldfish.core.lookup as lookup
-import goldfish.core.command as command
-import goldfish.core.query as query
+from ..core import lookup, command, query
 
-import goldfish.web.buildresource as build_resource_for
-import goldfish.web.buildactionresponse as build_action_response_for
-from goldfish.web.context import Context
-from goldfish.web.dictalizer import namedtuple_to_dict
-import goldfish.web.session as session
+from . import buildresource as build_resource_for
+from . import buildactionresponse as build_action_response_for
+from .context import Context
+from .dictalizer import namedtuple_to_dict
+from . import session
 
 application = Flask("Goldfish application")
 
