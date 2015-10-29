@@ -77,8 +77,8 @@ def user_calendars(context, calendars, user):
     links = {}
     actions = {}
     embedded = {}
-    calendars_repr = map()
-    data = UserCalendarsData(list=[])
+    calendars_repr = []
+    data = UserCalendarsData(list=calendars_repr)
 
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)

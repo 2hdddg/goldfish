@@ -26,10 +26,10 @@ export class UserTemplate extends React.Component {
             .then(actionResponse => {
                 this.setState({isBusy: false, message: ''});
 
-                let created = actionResponse.getEmbeddedFromEvent('created');
-                let user = created.filter(x => x.cls === 'User')[0];
+                let user = actionResponse
+                    .getEmbeddedFromEvent('created')
+                    .filter(x => x.cls === 'User')[0];
                 let calendars_link = user.getLink('calendars');
-
                 open(calendars_link);
             })
             .catch(error => {
@@ -64,6 +64,11 @@ export class GlobalCalendars extends React.Component {
 
 export class UserCalendars extends React.Component {
     render(){
+        let resource = this.props.resource;
+        let calendars = resource.property('list', []);
+        if (calendars.length === 0){
+            return (<span>No calendars, yet!</span>);
+        }
         return (
             <div>List of users calendars</div>);
     }

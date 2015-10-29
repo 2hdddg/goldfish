@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { StackedActionForm } from './actionform'
+import { open } from '../infrastructure/currentpage'
 
 export default class LoginForm extends React.Component{
     constructor(){
@@ -20,12 +21,17 @@ export default class LoginForm extends React.Component{
         this.setState({isBusy: true});
 
         loginAction.submit(data)
-            .then(resource => {
+            .then(actionResponse => {
                 this.setState({isBusy: false, message: ''});
                 let requestClose = this.props.requestClose;
                 if (requestClose){
                     requestClose();
                 }
+                let user = actionResponse
+                    .getEmbeddedFromEvent('logged_in')
+                    .filter(x => x.cls === 'User')[0];
+                let calendars_link = user.getLink('calendars');
+                open(calendars_link);
             })
             .catch(error => {
                 if (error.response && error.response.status === 401){

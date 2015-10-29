@@ -22,7 +22,6 @@ export default class HeaderArea{
         let logout = this._application.getAction('logout');
         logout.submit({})
             .then(actionResponse => {
-                debugger;
             })
             .catch(error => {
             });
