@@ -80,6 +80,11 @@ def user_calendars(context, calendars, user):
     calendars_repr = []
     data = UserCalendarsData(list=calendars_repr)
 
+    user_same_as_logged_in = user.id == context.user.id
+
+    if user_same_as_logged_in:
+        links['calendarTemplate'] = '/calendar/template'
+
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
 

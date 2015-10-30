@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PageLink from '../components/pagelink';
 import { StackedActionForm } from '../components/actionform'
 import { open } from '../infrastructure/currentpage'
 
@@ -66,10 +67,33 @@ export class UserCalendars extends React.Component {
     render(){
         let resource = this.props.resource;
         let calendars = resource.property('list', []);
-        if (calendars.length === 0){
-            return (<span>No calendars, yet!</span>);
+
+        let menuitemClasses = "pure-menu-link";
+        let menuitems = [];
+        if (resource.hasLink('calendarTemplate')){
+            let link = resource.getLink('calendarTemplate');
+            menuitems.push(
+                <li key="createcalendar" className="pure-menu-item">
+                    <PageLink classes={menuitemClasses} key="createcalendar" text="New calendar" link={link} />
+                </li>);
         }
-        return (
-            <div>List of users calendars</div>);
+        let menuHtml =
+            <ul className="pure-menu-list" style={{float: 'right'}}>
+                {menuitems}
+            </ul>;
+
+        let content = null;
+        if (calendars.length === 0){
+            content = (<div><span>No calendars, yet!</span><div>{menuHtml}</div></div>);
+        }
+        else{
+            let calendarsHtml = [];
+            calendars.forEach(c => {
+                let html = (<span>A calendar</span>);
+                calendarsHtml.push(html);
+            });
+            content = (<div><h1>List of users calendars</h1><div>{calendarsHtml}</div><div>{menuHtml}</div></div>);
+        }
+        return content;
     }
 }
