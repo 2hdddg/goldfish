@@ -130,7 +130,7 @@ def user(context, user):
     data = UserData(
         first_name=user.first_name, last_name=user.last_name)
 
-    user_same_as_logged_in = user.id == context.user.id
+    user_same_as_logged_in = context.is_authorized and user.id == context.user.id
 
     if user_same_as_logged_in:
         links['calendars'] = _link_to_user_calendars(user)

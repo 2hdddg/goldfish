@@ -46,3 +46,46 @@ class TestApplicationResource(unittest.TestCase):
         current_link = resource.links['current']
         self.assertEqual(current_link, 'the link')
         self.assertEqual(resource.embedded[current_link].data, 'just to know')
+
+    def test_should_contain_user_representation_when_authorized(self):
+        context = Context(FakeWorkUnit(), user=_user())
+
+        resource = buildresource.application(context)
+
+        self.assertEqual(resource.data.user_repr.data.first_name, "Joey")
+
+
+class TestUserResource(unittest.TestCase):
+    def test_should_set_properties(self):
+        context = Context(FakeWorkUnit())
+        user = _user()
+
+        resource = buildresource.user(context, user)
+
+        self.assertEqual(resource.data.first_name, user.first_name)
+        self.assertEqual(resource.data.last_name, user.last_name)
+
+    def test_should_have_link_to_calendars_when_authorized_and_user_is_self(self):
+        user = _user()
+        context = Context(FakeWorkUnit(), user=user)
+
+        resource = buildresource.user(context, user)
+
+        self.assertIn('calendars', resource.links)
+
+
+class TestUserTemplateResource(unittest.TestCase):
+    def test_should_have_create_action(self):
+        context = Context(FakeWorkUnit())
+
+        resource = buildresource.user_template(context)
+
+        self.assertIn('create', resource.actions)
+
+    def test_create_action_should_have_form(self):
+        context = Context(FakeWorkUnit())
+
+        resource = buildresource.user_template(context)
+
+        action = resource.actions['create']
+        self.assertGreater(len(action.form), 0)
