@@ -45,7 +45,7 @@ Resource = namedtuple('Resource', [
 ])
 
 
-ApplicationData = namedtuple('ApplicationData', ['user_repr', 'current_link'])
+ApplicationData = namedtuple('ApplicationData', ['user_repr'])
 
 CalendarData = namedtuple('CalendarData', [])
 

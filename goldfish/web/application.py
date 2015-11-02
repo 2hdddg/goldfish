@@ -141,3 +141,11 @@ def calendar_get(id):
         calendar = lookup.calendar(workunit, id)
         result = build_resource_for.calendar(context, calendar)
         return _response(context, result)
+
+
+@application.route('/calendar/template', methods=['GET'])
+def calendar_template():
+    context = session.get_context()
+    with context.workunit:
+        result = build_resource_for.calendar_template(context)
+        return _response(context, result)

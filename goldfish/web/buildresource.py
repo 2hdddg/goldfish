@@ -30,6 +30,13 @@ def _create_user_action():
         ref='/user/create', form=form)
 
 
+def _create_calendar_action():
+    form = [
+    ]
+    return Action(
+        ref='/calendar/create', form=form)
+
+
 def application(context, current=None):
     ref = '/application'
     cls = 'Application'
@@ -37,19 +44,19 @@ def application(context, current=None):
     actions = {}
     embedded = {}
     data = None
-    current_link = current.ref if current else None
+
+    if current:
+        links['current'] = current.ref
+        embedded[current.ref] = current
 
     if context.is_authorized:
         actions['logout'] = _logout_action()
         user = build_representation_for.user(context, context.user)
-        data = ApplicationData(user_repr=user, current_link=current_link)
+        data = ApplicationData(user_repr=user)
     else:
         actions['login'] = _login_action()
         links['userTemplate'] = '/user/template'
-        data = ApplicationData(user_repr=None, current_link=current_link)
-
-    if current:
-        embedded[current.ref] = current
+        data = ApplicationData(user_repr=None)
 
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
@@ -99,6 +106,19 @@ def calendar(context, calendar):
 
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
+
+
+def calendar_template(context):
+    ref = '/calendar/template'
+    cls = 'CalendarTemplate'
+    links = {}
+    actions = {
+        'create': _create_calendar_action()
+    }
+    embedded = {}
+
+    return Resource(
+        ref=ref, cls=cls, data=None, links=links, actions=actions, embedded=embedded)
 
 
 def user(context, user):

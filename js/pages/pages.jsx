@@ -56,6 +56,38 @@ export class UserTemplate extends React.Component {
     }
 }
 
+export class CalendarTemplate extends React.Component {
+
+    constructor(){
+        super();
+        this.state = {
+            isBusy: false,
+            validationMessage: ''
+        };
+        this._form = new StackedActionForm();
+        this._submit = this._submit.bind(this);
+    }
+    _submit(event){
+    }
+    render(){
+        let html;
+        let template = this.props.resource;
+
+        if (this.state.isBusy){
+            html = (<span>Busy</span>);
+        }
+        else{
+            let createAction = template.getAction('create');
+            html = this._form.htmlFormForAction(
+                createAction, 'Whatever.', 'Register', (usage, fieldname) => fieldname, this._submit);
+        }
+
+        return (
+            <div>{html}<span>{this.state.message}</span></div>);
+    }
+}
+
+
 export class GlobalCalendars extends React.Component {
     render(){
         return (

@@ -13,7 +13,7 @@ export default class Application extends Resource {
         if (!this._current){
             // Check if backend has supplied us
             // with a current resource
-            let current_link = this._json.data.current_link;
+            let current_link = this.getLink('current');
             if (current_link){
                 let embedded = this._json.embedded[current_link];
                 this._current = this._factory.createFromJson(embedded);
