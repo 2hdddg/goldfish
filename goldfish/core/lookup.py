@@ -14,4 +14,7 @@ class Lookup(object):
             raise NotFound()
 
     def calendar(self, id):
-        return self._db.calendars[id]
+        try:
+            return self._db.calendars[id]
+        except KeyError:
+            raise NotFound()

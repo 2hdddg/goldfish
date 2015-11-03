@@ -27,7 +27,8 @@ class UserCommandsTests(unittest.TestCase):
         self.assertEqual(logged_on_user, None)
 
     def test_can_NOT_logon_with_wrong_password(self):
-        user = User(id=666, first_name="X", last_name="Y", email="the_user", hashedpassword="the_password")
+        user = User(
+            id=666, first_name="X", last_name="Y", email="the_user", hashedpassword="the_password")
         self.workunit.query.user.by_email_mock = user
 
         logged_on_user = self.workunit.command.user.try_logon(

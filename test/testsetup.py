@@ -1,3 +1,5 @@
+import string
+import random
 
 from goldfish.core.workunit import WorkUnit
 from goldfish.core.lookup import Lookup
@@ -51,3 +53,29 @@ class WorkUnitFake(WorkUnit):
     @property
     def lookup(self):
         return self._lookup
+
+
+def random_string(num):
+    options = string.ascii_lowercase
+    choosen = [random.choice(options) for _ in range(num)]
+
+    return ''.join(choosen)
+
+
+def create_real_workunit():
+    return WorkUnit()
+
+
+def create_dummy_user(workunit):
+    return workunit.command.user.create(
+        first_name=random_string(20),
+        last_name=random_string(20),
+        email=random_string(10) + "@" + random_string(15) + ".com",
+        password=random_string(20))
+
+
+def create_dummy_calendar(workunit, owner=None):
+    owner = create_dummy_user(workunit) if not owner else owner
+
+    return workunit.command.calendar.create(
+        owner=owner)
