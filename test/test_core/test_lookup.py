@@ -3,7 +3,7 @@ import unittest
 
 from .. import testsetup
 
-from goldfish.core.infrastructure import WorkUnit
+from goldfish.core.workunit import WorkUnit
 from goldfish.core.entity import *
 from goldfish.core.exceptions import *
 

@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from flask import request
 
-from ..core.infrastructure import WorkUnit
+from ..core.workunit import WorkUnit
 from .context import Context
 
 

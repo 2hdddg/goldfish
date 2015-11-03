@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from goldfish.web.application import application
-from goldfish.core.infrastructure import WorkUnit
+from goldfish.core.workunit import WorkUnit
 
 with WorkUnit() as workunit:
     user = workunit.command.user.create(

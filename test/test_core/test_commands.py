@@ -3,7 +3,7 @@ import unittest
 
 from ..testsetup import WorkUnitFake
 
-from goldfish.core.infrastructure import WorkUnit
+from goldfish.core.workunit import WorkUnit
 from goldfish.core.entity import User
 
 

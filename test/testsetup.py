@@ -1,5 +1,5 @@
 
-from goldfish.core.infrastructure import WorkUnit
+from goldfish.core.workunit import WorkUnit
 from goldfish.core.lookup import Lookup
 from goldfish.core.query import Query, UserQuery
 
