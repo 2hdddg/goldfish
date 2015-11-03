@@ -3,12 +3,15 @@ from __future__ import absolute_import
 from .exceptions import NotFound
 
 
-def user(workunit, id):
-    try:
-        return workunit.db.users[id]
-    except KeyError:
-        raise NotFound()
+class Lookup(object):
+    def __init__(self, db):
+        self._db = db
 
+    def user(self, id):
+        try:
+            return self._db.users[id]
+        except KeyError:
+            raise NotFound()
 
-def calendar(workunit, id):
-    return workunit.db.calendars[id]
+    def calendar(self, id):
+        return self._db.calendars[id]

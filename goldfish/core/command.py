@@ -1,31 +1,53 @@
 from __future__ import absolute_import
 
 from .entity import User, Calendar
-from . import query
 
 
-def create_user(workunit, first_name, last_name, email, password):
-    id = workunit.db.next_id()
-    user = User(
-        id=id, first_name=first_name, last_name=last_name,
-        email=email, hashedpassword=password)
-    workunit.db.users[id] = user
+class UserCommands(object):
+    def __init__(self, db, query):
+        self._db = db
+        self._query = query
 
-    return user
+    def create(self, first_name, last_name, email, password):
+        id = self._db.next_id()
+        user = User(
+            id=id, first_name=first_name, last_name=last_name,
+            email=email, hashedpassword=password)
+        self._db.users[id] = user
 
-
-def try_logon(workunit, username, password, get_user_by_email=query.get_user_by_email):
-    user = get_user_by_email(workunit, username)
-    if user and user.hashedpassword == password:
         return user
 
-    return None
+    def try_logon(self, username, password):
+        user = self._query.user.by_email(username)
+        if user and user.hashedpassword == password:
+            return user
+
+        return None
 
 
-def create_calendar(workunit, owner):
-    id = workunit.db.next_id()
-    calendar = Calendar(id=id, owner=owner)
+class CalendarCommands(object):
+    def __init__(self, db, query):
+        self._db = db
+        self._query = query
 
-    workunit.db.calendars[id] = calendar
+    def create(self, owner):
+        id = self._db.next_id()
+        calendar = Calendar(id=id, owner=owner)
 
-    return calendar
+        self._db.calendars[id] = calendar
+
+        return calendar
+
+
+class Command(object):
+    def __init__(self, db, query):
+        self._db = db
+        self._query = query
+
+    @property
+    def user(self):
+        return UserCommands(self._db, self._query)
+
+    @property
+    def calendar(self):
+        return CalendarCommands(self._db, self._query)

@@ -1,7 +1,9 @@
 from __future__ import absolute_import
 
-
 from . import db
+from .lookup import Lookup
+from .command import Command
+from .query import Query
 
 
 class WorkUnit(object):
@@ -44,3 +46,15 @@ class WorkUnit(object):
             self._state = 'cancelled'
         else:
             raise "can not cancel from state:" + self._state
+
+    @property
+    def lookup(self):
+        return Lookup(self.db)
+
+    @property
+    def query(self):
+        return Query(self.db)
+
+    @property
+    def command(self):
+        return Command(self.db, self.query)

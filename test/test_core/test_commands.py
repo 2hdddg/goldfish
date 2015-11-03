@@ -1,59 +1,50 @@
+from __future__ import absolute_import
 import unittest
 
-import testsetup
+from ..testsetup import WorkUnitFake
 
 from goldfish.core.infrastructure import WorkUnit
-from goldfish.core.entity import *
-import goldfish.core.lookup as lookup
-import goldfish.core.command as command
+from goldfish.core.entity import User
 
 
-class CreateUserTests(unittest.TestCase):
+class UserCommandsIntegrationTests(unittest.TestCase):
 
     def test_creation_of_valid_user(self):
         workunit = WorkUnit()
 
-        created = command.create_user(
-            workunit, first_name="Me", last_name="Too", email="me@too.com", password="xyz")
+        created = workunit.command.user.create(
+            first_name="Me", last_name="Too", email="me@too.com", password="xyz")
 
-        retrieved = lookup.user(workunit, created.id)
+        retrieved = workunit.lookup.user(created.id)
         self.assertGreater(created.id, 0)
         self.assertEqual(retrieved.id, created.id)
 
 
-class TryLogonTests(unittest.TestCase):
+class UserCommandsTests(unittest.TestCase):
+    def setUp(self):
+        self.workunit = WorkUnitFake()
 
     def test_can_logon_with_correct_credentials(self):
-        workunit = WorkUnit()
-        user = User(id=666, first_name="X", last_name="Y", email="the_user", hashedpassword="the_password")
+        user = User(
+            id=666, first_name="X", last_name="Y", email="the_user", hashedpassword="the_password")
+        self.workunit.query.user.by_email_mock = user
 
-        def fake_query(workunit, username):
-            return user
-
-        logged_on_user = command.try_logon(
-            workunit, "the_user", "the_password", get_user_by_email=fake_query)
+        logged_on_user = self.workunit.command.user.try_logon("the_user", "the_password")
 
         self.assertEqual(logged_on_user.id, user.id)
 
     def test_can_NOT_logon_with_non_existant_username(self):
-        workunit = WorkUnit()
+        self.workunit.query.user.by_email_mock = None
 
-        def fake_query(workunit, username):
-            return None
-
-        logged_on_user = command.try_logon(
-            workunit, "the_user", "the_password", get_user_by_email=fake_query)
+        logged_on_user = self.workunit.command.user.try_logon("the_user", "the_password")
 
         self.assertEqual(logged_on_user, None)
 
     def test_can_NOT_logon_with_wrong_password(self):
-        workunit = WorkUnit()
         user = User(id=666, first_name="X", last_name="Y", email="the_user", hashedpassword="the_password")
+        self.workunit.query.user.by_email_mock = user
 
-        def fake_query(workunit, username):
-            return user
-
-        logged_on_user = command.try_logon(
-            workunit, "the_user", "wrong_password", get_user_by_email=fake_query)
+        logged_on_user = self.workunit.command.user.try_logon(
+            "the_user", "wrong_password")
 
         self.assertEqual(logged_on_user, None)

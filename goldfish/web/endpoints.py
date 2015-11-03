@@ -2,8 +2,6 @@ from __future__ import absolute_import
 
 from flask import jsonify, render_template, request, make_response
 
-from ..core import lookup, command, query
-
 from .dictalizer import namedtuple_to_dict
 from .context import Context
 from . import session
@@ -23,7 +21,8 @@ def _response(context, result):
 
 def _default_page(context):
     if context.is_authorized:
-        calendars = query.get_user_calendars(context.workunit, context.userid)
+        workunit = context.workunit
+        calendars = workunit.query.calendar.by_owner(context.userid)
         return build_resource_for.user_calendars(context, calendars, context.user)
     else:
         return build_resource_for.popular_calendars(context)
@@ -54,7 +53,7 @@ def login():
 
     context = session.get_context()
     with context.workunit as workunit:
-        user = command.try_logon(workunit, username, password)
+        user = workunit.command.user.try_logon(username, password)
         if user:
             # Recreate the context with authorized user
             context = Context(workunit, user)
@@ -99,7 +98,7 @@ def user_create():
 
     context = session.get_context()
     with context.workunit as workunit:
-        user = command.create_user(
+        user = workunit.command.user.create(
             workunit, first_name, last_name, '', '')
         if not context.is_authorized:
             # Login user, assume sign up
@@ -120,7 +119,7 @@ def user_create():
 def user_calendars_get(userid):
     context = session.get_context()
     with context.workunit as workunit:
-        calendars = query.get_user_calendars(workunit, userid)
+        calendars = workunit.query.calendar.by_owner(userid)
         result = build_resource_for.user_calendars(context, calendars, context.user)
         return _response(context, result)
 
@@ -128,7 +127,7 @@ def user_calendars_get(userid):
 def calendar_get(id):
     context = session.get_context()
     with context.workunit as workunit:
-        calendar = lookup.calendar(workunit, id)
+        calendar = workunit.lookup.calendar(id)
         result = build_resource_for.calendar(context, calendar)
         return _response(context, result)
 

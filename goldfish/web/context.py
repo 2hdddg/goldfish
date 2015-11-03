@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-from ..core import lookup as lookup
-
 
 class Context(object):
     def __init__(self, workunit, user=None, userid=None):
@@ -23,9 +21,8 @@ class Context(object):
             raise "Unauthorized!"
 
         if not self._user:
-            workunit = self.workunit
-            self._user = lookup.user(
-                workunit, self._userid)
+            lookup = self.workunit.lookup
+            self._user = lookup.user(self._userid)
 
         return self._user
 
