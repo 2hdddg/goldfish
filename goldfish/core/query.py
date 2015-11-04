@@ -1,6 +1,19 @@
 from __future__ import absolute_import
 
 
+class Query(object):
+    def __init__(self, db):
+        self._db = db
+
+    @property
+    def user(self):
+        return UserQuery(self._db)
+
+    @property
+    def calendar(self):
+        return CalendarQuery(self._db)
+
+
 class UserQuery(object):
     def __init__(self, db):
         self._db = db
@@ -21,16 +34,3 @@ class CalendarQuery(object):
         for _, calendar in self._db.calendars.iteritems():
             if calendar.owner == userid:
                 yield calendar
-
-
-class Query(object):
-    def __init__(self, db):
-        self._db = db
-
-    @property
-    def user(self):
-        return UserQuery(self._db)
-
-    @property
-    def calendar(self):
-        return CalendarQuery(self._db)

@@ -28,7 +28,7 @@ def _default_page(context):
         return build_resource_for.popular_calendars(context)
 
 
-def index():
+def get_application_html():
     context = session.get_context()
     with context.workunit:
         current = _default_page(context)
@@ -39,7 +39,7 @@ def index():
         return render_template('index.html', application=application_as_dict)
 
 
-def application_index():
+def get_application():
     context = session.get_context()
     with context.workunit:
         result = build_resource_for.application(context)
@@ -83,14 +83,14 @@ def logout():
     return response
 
 
-def user_template():
+def get_user_template():
     context = session.get_context()
     with context.workunit:
         result = build_resource_for.user_template(context)
         return _response(context, result)
 
 
-def user_create():
+def create_user():
     body = request.get_json()
     first_name = body['first_name']
     last_name = body['last_name']
@@ -116,7 +116,7 @@ def user_create():
         return response
 
 
-def user_calendars_get(userid):
+def get_user_calendars(userid):
     context = session.get_context()
     with context.workunit as workunit:
         calendars = workunit.query.calendar.by_owner(userid)
@@ -124,7 +124,7 @@ def user_calendars_get(userid):
         return _response(context, result)
 
 
-def calendar_get(id):
+def get_calendar(id):
     context = session.get_context()
     with context.workunit as workunit:
         calendar = workunit.lookup.calendar(id)
@@ -132,7 +132,7 @@ def calendar_get(id):
         return _response(context, result)
 
 
-def calendar_template():
+def get_calendar_template():
     context = session.get_context()
     with context.workunit:
         result = build_resource_for.calendar_template(context)

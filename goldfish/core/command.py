@@ -3,7 +3,21 @@ from __future__ import absolute_import
 from .entity import User, Calendar
 
 
-class UserCommands(object):
+class Command(object):
+    def __init__(self, db, query):
+        self._db = db
+        self._query = query
+
+    @property
+    def user(self):
+        return UserCommand(self._db, self._query)
+
+    @property
+    def calendar(self):
+        return CalendarCommand(self._db, self._query)
+
+
+class UserCommand(object):
     def __init__(self, db, query):
         self._db = db
         self._query = query
@@ -25,7 +39,7 @@ class UserCommands(object):
         return None
 
 
-class CalendarCommands(object):
+class CalendarCommand(object):
     def __init__(self, db, query):
         self._db = db
         self._query = query
@@ -37,17 +51,3 @@ class CalendarCommands(object):
         self._db.calendars[id] = calendar
 
         return calendar
-
-
-class Command(object):
-    def __init__(self, db, query):
-        self._db = db
-        self._query = query
-
-    @property
-    def user(self):
-        return UserCommands(self._db, self._query)
-
-    @property
-    def calendar(self):
-        return CalendarCommands(self._db, self._query)
