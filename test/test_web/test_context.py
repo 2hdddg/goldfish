@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import unittest
 
-from ..testsetup import WorkUnitFake
+from ..testsetup import WorkUnitFake, build_unauthorized_context
 
 from goldfish.core.exceptions import Unauthorized
 from goldfish.core.entity import User
@@ -15,7 +15,7 @@ def _user():
 class TestContext(unittest.TestCase):
 
     def test_should_be_unauthorized_when_constructed_without_user(self):
-        context = Context(WorkUnitFake())
+        context = build_unauthorized_context()
 
         self.assertFalse(context.is_authorized)
 
@@ -30,13 +30,13 @@ class TestContext(unittest.TestCase):
         self.assertTrue(context.is_authorized)
 
     def test_should_raise_when_accessing_user_on_unauthorized_context(self):
-        context = Context(WorkUnitFake())
+        context = build_unauthorized_context()
 
         with self.assertRaises(Unauthorized):
             context.user
 
     def test_should_raise_when_accessing_userid_on_unauthorized_context(self):
-        context = Context(WorkUnitFake())
+        context = build_unauthorized_context()
 
         with self.assertRaises(Unauthorized):
             context.userid
