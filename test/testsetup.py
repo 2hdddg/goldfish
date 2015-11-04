@@ -1,9 +1,12 @@
 import string
 import random
 
+from goldfish.core.entity import User
 from goldfish.core.workunit import WorkUnit
 from goldfish.core.lookup import Lookup
 from goldfish.core.query import Query, UserQuery
+
+from goldfish.web.context import Context
 
 
 class LookupFake(Lookup):
@@ -62,6 +65,28 @@ def random_string(num):
     return ''.join(choosen)
 
 
+def random_email():
+    return random_string(10) + "@" + random_string(15) + ".com"
+
+
+def build_dummy_user():
+    return User(
+        id=random.randint(1, 9999999),
+        first_name=random_string(20),
+        last_name=random_string(20),
+        email=random_email(),
+        hashedpassword=random_string(20))
+
+
+def build_authorized_context(user=None):
+    user = build_dummy_user() if not user else user
+    return Context(WorkUnitFake(), user=user)
+
+
+def build_unauthorized_context():
+    return Context(WorkUnitFake())
+
+
 def create_real_workunit():
     return WorkUnit()
 
@@ -70,7 +95,7 @@ def create_dummy_user(workunit):
     return workunit.command.user.create(
         first_name=random_string(20),
         last_name=random_string(20),
-        email=random_string(10) + "@" + random_string(15) + ".com",
+        email=random_email(),
         password=random_string(20))
 
 

@@ -3,6 +3,7 @@ import unittest
 
 from ..testsetup import WorkUnitFake
 
+from goldfish.core.exceptions import Unauthorized
 from goldfish.core.entity import User
 from goldfish.web.context import Context
 
@@ -31,13 +32,13 @@ class TestContext(unittest.TestCase):
     def test_should_raise_when_accessing_user_on_unauthorized_context(self):
         context = Context(WorkUnitFake())
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Unauthorized):
             context.user
 
     def test_should_raise_when_accessing_userid_on_unauthorized_context(self):
         context = Context(WorkUnitFake())
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Unauthorized):
             context.userid
 
     def test_can_get_user_when_initialized_with_userid(self):

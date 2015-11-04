@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+from ..core.exceptions import Unauthorized
+
 
 class Context(object):
     def __init__(self, workunit, user=None, userid=None):
@@ -18,7 +20,7 @@ class Context(object):
     @property
     def user(self):
         if not self.is_authorized:
-            raise "Unauthorized!"
+            raise Unauthorized()
 
         if not self._user:
             lookup = self.workunit.lookup
@@ -29,6 +31,6 @@ class Context(object):
     @property
     def userid(self):
         if not self.is_authorized:
-            raise "Unauthorized!"
+            raise Unauthorized()
 
         return self._userid
