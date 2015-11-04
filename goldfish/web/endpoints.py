@@ -116,6 +116,14 @@ def create_user():
         return response
 
 
+def get_user(id):
+    context = session.get_context()
+    with context.workunit as workunit:
+        user = workunit.lookup.user(id)
+        result = build_resource_for.user(context, user)
+        return _response(context, result)
+
+
 def get_user_calendars(userid):
     context = session.get_context()
     with context.workunit as workunit:
