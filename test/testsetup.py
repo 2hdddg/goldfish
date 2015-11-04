@@ -78,13 +78,17 @@ def build_dummy_user():
         hashedpassword=random_string(20))
 
 
-def build_authorized_context(user=None):
+def build_authorized_context(workunit=None, user=None):
+    workunit = WorkUnitFake() if not workunit else workunit
     user = build_dummy_user() if not user else user
-    return Context(WorkUnitFake(), user=user)
+
+    return Context(workunit, user=user)
 
 
-def build_unauthorized_context():
-    return Context(WorkUnitFake())
+def build_unauthorized_context(workunit=None):
+    workunit = WorkUnitFake() if not workunit else workunit
+
+    return Context(workunit)
 
 
 def create_real_workunit():

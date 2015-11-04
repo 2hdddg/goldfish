@@ -1,15 +1,10 @@
 from __future__ import absolute_import
 import unittest
 
-from ..testsetup import WorkUnitFake, build_unauthorized_context
+from ..testsetup import WorkUnitFake, build_unauthorized_context, build_authorized_context, build_dummy_user
 
 from goldfish.core.exceptions import Unauthorized
-from goldfish.core.entity import User
 from goldfish.web.context import Context
-
-
-def _user():
-    return User(666, "Joey", "Ramone", "joey@blitzkrieg.com", "hash")
 
 
 class TestContext(unittest.TestCase):
@@ -20,12 +15,12 @@ class TestContext(unittest.TestCase):
         self.assertFalse(context.is_authorized)
 
     def test_should_be_authorized_when_constructed_with_user(self):
-        context = Context(WorkUnitFake(), user=_user())
+        context = build_authorized_context()
 
         self.assertTrue(context.is_authorized)
 
     def test_should_be_authorized_when_constructed_with_userid(self):
-        context = Context(WorkUnitFake(), userid=666)
+        context = build_authorized_context()
 
         self.assertTrue(context.is_authorized)
 
@@ -42,15 +37,17 @@ class TestContext(unittest.TestCase):
             context.userid
 
     def test_can_get_user_when_initialized_with_userid(self):
+        inited_user = build_dummy_user()
+
         def lookup(id):
-            if not id == 666:
+            if not id == inited_user.id:
                 raise "hell"
-            return _user()
+            return inited_user
 
         workunit = WorkUnitFake()
         workunit.lookup.user_mock = lookup
-        context = Context(workunit, userid=666)
+        context = Context(workunit, userid=inited_user.id)
 
         user = context.user
 
-        self.assertTrue(user)
+        self.assertEquals(user.first_name, inited_user.first_name)
