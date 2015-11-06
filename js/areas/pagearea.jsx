@@ -19,6 +19,7 @@ export default class PageArea{
         let pageCtor = pages[cls];
 
         if (!pageCtor){
+            log.error(() => "Unable to find pagearea view for: " + cls);
             throw "Unable to find pagearea view for: " + cls;
         }
 

@@ -17,6 +17,13 @@ export default function start(applicationJson){
     let headerArea = new HeaderArea(application, document.getElementById('account'));
     let pageArea = new PageArea(application, document.getElementById('content'));
 
+    let renderErrorPage = error => {
+        application.current = {
+            cls: 'Error'
+        };
+        pageArea.render();
+    };
+
     setCurrentPageCallbacks((url, resource) => {
         if (resource){
             application.current = resource;
@@ -24,8 +31,7 @@ export default function start(applicationJson){
                 pageArea.render();
             }
             catch(e){
-                application.current = { cls: 'Error' };
-                pageArea.render();
+                renderErrorPage(e);
             }
         }
         else{
@@ -36,15 +42,19 @@ export default function start(applicationJson){
                     pageArea.render();
                 })
                 .catch(() => {
-                    application.current = { cls: 'Error' };
-                    pageArea.render();
+                    renderErrorPage();
                 });
         }
     });
 
     let rerender = () => {
         headerArea.render();
-        pageArea.render();
+        try {
+            pageArea.render();
+        }
+        catch (e){
+            renderErrorPage(e);
+        }
     };
 
     application.subscribe('logged_in', rerender);

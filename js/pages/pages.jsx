@@ -4,7 +4,7 @@ import React from 'react';
 import PageLink from '../components/pagelink';
 import { StackedActionForm } from '../components/actionform';
 import { open } from '../infrastructure/currentpage';
-import { ErrorPage } from './error';
+import { ErrorPage } from './errorpage';
 
 export let Error = ErrorPage;
 
