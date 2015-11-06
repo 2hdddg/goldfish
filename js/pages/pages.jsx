@@ -2,8 +2,11 @@
 
 import React from 'react';
 import PageLink from '../components/pagelink';
-import { StackedActionForm } from '../components/actionform'
-import { open } from '../infrastructure/currentpage'
+import { StackedActionForm } from '../components/actionform';
+import { open } from '../infrastructure/currentpage';
+import { ErrorPage } from './error';
+
+export let Error = ErrorPage;
 
 export class UserTemplate extends React.Component {
 

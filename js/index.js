@@ -20,13 +20,23 @@ export default function start(applicationJson){
     setCurrentPageCallbacks((url, resource) => {
         if (resource){
             application.current = resource;
-            pageArea.render();
+            try {
+                pageArea.render();
+            }
+            catch(e){
+                application.current = { cls: 'Error' };
+                pageArea.render();
+            }
         }
         else{
             server
                 .getJson(url)
                 .then(json => {
                     application.current = json;
+                    pageArea.render();
+                })
+                .catch(() => {
+                    application.current = { cls: 'Error' };
                     pageArea.render();
                 });
         }
