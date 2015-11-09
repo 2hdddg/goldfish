@@ -17,7 +17,7 @@ def user(context, user):
 
 def calendar(context, calendar):
     ref = '/calendar/%s' % calendar.id
-    data = CalendarReprData(name='xyz')
+    data = CalendarReprData(name=calendar.name)
 
     return Representation(
         ref=ref, cls="Representation", refcls="Calendar", data=data)

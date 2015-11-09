@@ -38,6 +38,14 @@ def _create_calendar_action():
         ref='/calendar/create', form=form)
 
 
+def _link_to_user_calendars(user):
+    return '/user/' + str(user.id) + "/calendars"
+
+
+def _link_to_popular_calendars():
+    return '/calendars/popular'
+
+
 def application(context, current=None):
     ref = '/application'
     cls = 'Application'
@@ -51,12 +59,15 @@ def application(context, current=None):
         embedded[current.ref] = current
 
     if context.is_authorized:
+        user = context.user
         actions['logout'] = _logout_action()
-        user = build_representation_for.user(context, context.user)
+        links['default'] = _link_to_user_calendars(user)
+        user = build_representation_for.user(context, user)
         data = ApplicationData(user_repr=user)
     else:
         actions['login'] = _login_action()
         links['userTemplate'] = '/user/template'
+        links['default'] = _link_to_popular_calendars()
         data = ApplicationData(user_repr=None)
 
     return Resource(
@@ -64,7 +75,7 @@ def application(context, current=None):
 
 
 def popular_calendars(context):
-    ref = '/calendars/popular'
+    ref = _link_to_popular_calendars()
     cls = 'GlobalCalendars'
     links = {}
     actions = {}
@@ -73,10 +84,6 @@ def popular_calendars(context):
 
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)
-
-
-def _link_to_user_calendars(user):
-    return '/user/' + str(user.id) + "/calendars"
 
 
 def user_calendars(context, calendars, user):

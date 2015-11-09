@@ -1,6 +1,6 @@
 'use strict';
 
-import {setCallbacks as setCurrentPageCallbacks } from './infrastructure/currentpage';
+import { setCallbacks as setCurrentPageCallbacks } from './infrastructure/currentpage';
 import Server from './infrastructure/server';
 import Sync from './infrastructure/sync';
 import ModelFactory from './models/modelfactory';
@@ -18,11 +18,13 @@ export default function start(applicationJson){
     let headerArea = new HeaderArea(application, document.getElementById('header'));
     let pageArea = new PageArea(application, document.getElementById('content'));
 
-    let renderErrorPage = error => {
+    let renderErrorPageAndThrow = (logmessage, error) => {
+        log.error(() => logmessage);
         application.current = {
             cls: 'Error'
         };
         pageArea.render();
+        throw error;
     };
 
     let renderResource = resource => {
@@ -31,9 +33,7 @@ export default function start(applicationJson){
             pageArea.render();
         }
         catch(e){
-            log.error(() => "Failed to render resource: " + e);
-            renderErrorPage(e);
-            throw e;
+            renderErrorPageAndThrow("Failed to render resource: " + e, e);
         }
     };
 
@@ -48,10 +48,9 @@ export default function start(applicationJson){
                 .then(json => {
                     renderResource(json);
                 })
-                .catch(e => {
-                    log.error(() => "Resource load failed: " + e);
-                    renderErrorPage(e);
-                });
+                .catch(e =>
+                    renderErrorPageAndThrow("Resource load failed: " + e, e)
+                );
         }
     });
 
@@ -61,9 +60,7 @@ export default function start(applicationJson){
             pageArea.render();
         }
         catch (e){
-            log.error(() => "Failed to render built-in resource: " + e);
-            renderErrorPage(e);
-            throw e;
+            renderErrorPageAndThrow("Failed to render built-in resource: " + e, e);
         }
     };
 

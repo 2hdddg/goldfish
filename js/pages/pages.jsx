@@ -142,8 +142,8 @@ export class UserCalendars extends React.Component {
         }
         else{
             let calendarsHtml = [];
-            calendars.forEach(c => {
-                let html = (<span>A calendar</span>);
+            calendars.forEach(calendar => {
+                let html = (<div>{calendar.property('name')}</div>);
                 calendarsHtml.push(html);
             });
             content = (<div><h1>List of users calendars</h1><div>{calendarsHtml}</div><div>{menuHtml}</div></div>);

@@ -64,13 +64,15 @@ export default class HeaderArea{
                 </li>);
         }
 
+        let home = application.getLink('default');
         let html = (
             <div style={{background: '#1A1A1B'}} className="pure-menu pure-menu-horizontal">
-                <a className="pure-menu-heading" href="/">Goldfish</a>
+                <PageLink classes={["pure-menu-heading"]} text="Goldfish" link={home}></PageLink>
                 <ul className="pure-menu-list" style={{float: 'right'}}>
                     {menuitems}
                 </ul>
             </div>);
+        //       <a className="pure-menu-heading" href="/">Goldfish</a>
 
         React.render(
             html,
