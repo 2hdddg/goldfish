@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from .representation import Representation, UserReprData
+from .representation import Representation, UserReprData, CalendarReprData
 
 
 def application(context):
@@ -13,3 +13,11 @@ def user(context, user):
 
     return Representation(
         ref=ref, cls="Representation", refcls="User", data=data)
+
+
+def calendar(context, calendar):
+    ref = '/calendar/%s' % calendar.id
+    data = CalendarReprData(name='xyz')
+
+    return Representation(
+        ref=ref, cls="Representation", refcls="Calendar", data=data)

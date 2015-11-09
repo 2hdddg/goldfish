@@ -32,5 +32,5 @@ class CalendarQuery(object):
 
     def by_owner(self, userid):
         for _, calendar in self._db.calendars.iteritems():
-            if calendar.owner == userid:
+            if calendar.owner.id == userid:
                 yield calendar

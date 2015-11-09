@@ -16,7 +16,7 @@ function _convertObject(o, factory){
     }
 
     if (Array.isArray(o)){
-        return o.map(x => _convert(x));
+        return o.map(x => _convert(x, factory));
     }
 
     if (o.cls){

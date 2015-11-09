@@ -6,7 +6,7 @@ User = namedtuple(
     'User', ['id', 'first_name', 'last_name', 'email', 'hashedpassword'])
 
 Calendar = namedtuple(
-    'Calendar', ['id', 'owner'])
+    'Calendar', ['id', 'owner', 'name'])
 
 Happening = namedtuple(
     'Happening', ['id', 'calendar', 'tags', 'date', 'time'])

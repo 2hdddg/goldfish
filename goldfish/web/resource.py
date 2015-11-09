@@ -44,16 +44,16 @@ Resource = namedtuple('Resource', [
     'embedded'
 ])
 
-
 ApplicationData = namedtuple('ApplicationData', ['user_repr'])
 
-CalendarData = namedtuple('CalendarData', [])
+CalendarData = namedtuple('CalendarData', [
+    'name'
+])
 
 UserData = namedtuple('UserData', [
     'first_name',
     'last_name'
 ])
-
 
 PopularCalendarsData = namedtuple('PopularCalendarsData', [])
 

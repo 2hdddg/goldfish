@@ -19,7 +19,7 @@ class UserCommandsIntegrationTests(unittest.TestCase):
     def test_creation_of_valid_calendar(self):
         owner = create_dummy_user(self.workunit)
         created = self.workunit.command.calendar.create(
-            owner=owner.id)
+            owner=owner, name="whatever")
 
         retrieved = self.workunit.lookup.calendar(created.id)
         self.assertGreater(created.id, 0)

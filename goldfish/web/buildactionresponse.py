@@ -53,3 +53,17 @@ def created_user(context, user):
     response = ActionResponse(events=events, embedded=embedded)
 
     return response
+
+
+def created_calendar(context, calendar):
+    calendar_resource = build_resource_for.calendar(context, calendar)
+    calendar_repr = build_representation_for.calendar(context, calendar)
+    events = {
+        'created': [calendar_repr]
+    }
+    embedded = {}
+    embedded[calendar_repr.ref] = calendar_resource
+
+    response = ActionResponse(events=events, embedded=embedded)
+
+    return response

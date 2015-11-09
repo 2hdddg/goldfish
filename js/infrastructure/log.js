@@ -1,12 +1,12 @@
 'use strict';
 
-function log(f){
-    window.console.log("GOLDFISH:" + f());
+function expand(f){
+    return "GOLDFISH:" + f();
 }
 
 export default {
-    info: log,
-    debug: log,
-    error: log,
-    warn: log
+    info: f => console.info(expand(f)),
+    debug: f => console.debug(expand(f)),
+    error: f => console.error(expand(f)),
+    warn: f => console.warn(expand(f))
 };

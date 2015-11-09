@@ -66,7 +66,7 @@ export default class HeaderArea{
 
         let html = (
             <div style={{background: '#1A1A1B'}} className="pure-menu pure-menu-horizontal">
-                <a className="pure-menu-heading" href="">Goldfish</a>
+                <a className="pure-menu-heading" href="/">Goldfish</a>
                 <ul className="pure-menu-list" style={{float: 'right'}}>
                     {menuitems}
                 </ul>

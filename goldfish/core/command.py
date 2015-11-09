@@ -44,9 +44,9 @@ class CalendarCommand(object):
         self._db = db
         self._query = query
 
-    def create(self, owner):
+    def create(self, owner, name):
         id = self._db.next_id()
-        calendar = Calendar(id=id, owner=owner)
+        calendar = Calendar(id=id, owner=owner, name=name)
 
         self._db.calendars[id] = calendar
 

@@ -14,16 +14,19 @@ def _response(context, result):
         result_as_dict = namedtuple_to_dict(result)
         return jsonify(result_as_dict)
 
+    # Html response
     application = build_resource_for.application(context, current=result)
     application_as_dict = namedtuple_to_dict(application)
+
     return render_template('index.html', application=application_as_dict)
 
 
 def _default_page(context):
     if context.is_authorized:
         workunit = context.workunit
-        calendars = workunit.query.calendar.by_owner(context.userid)
-        return build_resource_for.user_calendars(context, calendars, context.user)
+        user = context.user
+        calendars = workunit.query.calendar.by_owner(user.id)
+        return build_resource_for.user_calendars(context, calendars, user)
     else:
         return build_resource_for.popular_calendars(context)
 
@@ -145,3 +148,20 @@ def get_calendar_template():
     with context.workunit:
         result = build_resource_for.calendar_template(context)
         return _response(context, result)
+
+
+def create_calendar():
+    body = request.get_json()
+    name = body['name']
+
+    context = session.get_context()
+    owner = context.user
+    with context.workunit as workunit:
+        calendar = workunit.command.calendar.create(
+            owner=owner, name=name)
+
+        result = build_action_response_for.created_calendar(context, calendar)
+        result = namedtuple_to_dict(result)
+        response = make_response(jsonify(result))
+
+        return response

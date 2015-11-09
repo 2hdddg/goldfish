@@ -107,4 +107,4 @@ def create_dummy_calendar(workunit, owner=None):
     owner = create_dummy_user(workunit) if not owner else owner
 
     return workunit.command.calendar.create(
-        owner=owner)
+        owner=owner, name=random_string(20))

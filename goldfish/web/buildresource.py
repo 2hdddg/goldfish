@@ -32,6 +32,7 @@ def _create_user_action():
 
 def _create_calendar_action():
     form = [
+        FormField(name='name', value='', type='name', required=True),
     ]
     return Action(
         ref='/calendar/create', form=form)
@@ -84,7 +85,8 @@ def user_calendars(context, calendars, user):
     links = {}
     actions = {}
     embedded = {}
-    calendars_repr = []
+    calendars_repr = [
+        build_representation_for.calendar(context, c) for c in calendars]
     data = UserCalendarsData(list=calendars_repr)
 
     user_same_as_logged_in = user.id == context.user.id
@@ -102,7 +104,7 @@ def calendar(context, calendar):
     links = {}
     actions = {}
     embedded = {}
-    data = CalendarData()
+    data = CalendarData(name=calendar.name)
 
     return Resource(
         ref=ref, cls=cls, data=data, links=links, actions=actions, embedded=embedded)

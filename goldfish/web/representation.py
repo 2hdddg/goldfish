@@ -17,3 +17,7 @@ UserReprData = namedtuple('UserReprData', [
     'first_name',
     'last_name'
 ])
+
+CalendarReprData = namedtuple('CalendarReprData', [
+    'name'
+])
