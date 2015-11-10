@@ -37,16 +37,7 @@ def get_application_html():
         current = _default_page(context)
         application = build_resource_for.application(context, current=current)
         application_as_dict = namedtuple_to_dict(application)
-        if request.is_xhr:
-            return jsonify(application_as_dict)
         return render_template('index.html', application=application_as_dict)
-
-
-def get_application():
-    context = session.get_context()
-    with context.workunit:
-        result = build_resource_for.application(context)
-        return _response(context, result)
 
 
 def login():

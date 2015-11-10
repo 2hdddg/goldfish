@@ -8,7 +8,7 @@ from . import buildrepresentation as build_representation_for
 def _logout_action():
     form = []
     return Action(
-        ref='/application/logout', form=form)
+        ref='/logout', form=form)
 
 
 def _login_action():
@@ -17,7 +17,7 @@ def _login_action():
         FormField(name='password', value='', type='password', required=True)
     ]
     return Action(
-        ref='/application/login', form=form)
+        ref='/login', form=form)
 
 
 def _create_user_action():

@@ -12,9 +12,8 @@ def _endpoint(rule, endpoint, methods=['GET']):
 
 
 _endpoint('/', endpoints.get_application_html)
-_endpoint('/application', endpoints.get_application)
-_endpoint('/application/login', endpoints.login, methods=['POST'])
-_endpoint('/application/logout', endpoints.logout, methods=['POST'])
+_endpoint('/login', endpoints.login, methods=['POST'])
+_endpoint('/logout', endpoints.logout, methods=['POST'])
 _endpoint('/user/template', endpoints.get_user_template)
 _endpoint('/user/create', endpoints.create_user, methods=['POST'])
 _endpoint('/user/<int:userid>/calendars', endpoints.get_user_calendars)
