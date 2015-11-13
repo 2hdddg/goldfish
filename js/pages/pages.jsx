@@ -4,9 +4,11 @@ import React from 'react';
 import PageLink from '../components/pagelink';
 import { StackedActionForm } from '../components/actionform';
 import { open } from '../infrastructure/currentpage';
-import { ErrorPage } from './errorpage';
+import ErrorPage from './errorpage';
+import UserCalendarsPage from './usercalendarspage'
 
 export let Error = ErrorPage;
+export let UserCalendars = UserCalendarsPage;
 
 export class UserTemplate extends React.Component {
 
@@ -117,40 +119,6 @@ export class GlobalCalendars extends React.Component {
     }
 }
 
-export class UserCalendars extends React.Component {
-    render(){
-        let resource = this.props.resource;
-        let calendars = resource.property('list', []);
-
-        let menuitemClasses = "pure-menu-link";
-        let menuitems = [];
-        if (resource.hasLink('calendarTemplate')){
-            let link = resource.getLink('calendarTemplate');
-            menuitems.push(
-                <li key="createcalendar" className="pure-menu-item">
-                    <PageLink classes={menuitemClasses} key="createcalendar" text="New calendar" link={link} />
-                </li>);
-        }
-        let menuHtml =
-            <ul className="pure-menu-list" style={{float: 'right'}}>
-                {menuitems}
-            </ul>;
-
-        let content = null;
-        if (calendars.length === 0){
-            content = (<div><span>No calendars, yet!</span><div>{menuHtml}</div></div>);
-        }
-        else{
-            let calendarsHtml = [];
-            calendars.forEach(calendar => {
-                let html = (<div>{calendar.property('name')}</div>);
-                calendarsHtml.push(html);
-            });
-            content = (<div><h1>List of users calendars</h1><div>{calendarsHtml}</div><div>{menuHtml}</div></div>);
-        }
-        return content;
-    }
-}
 
 export class User extends React.Component {
     render(){
