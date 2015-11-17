@@ -2,7 +2,7 @@
 
 import React from 'react';
 import log from '../infrastructure/log';
-import * as pages from '../pages/pages';
+import { lookup as pageLookup } from '../pages/registry';
 
 export default class PageArea{
     constructor(application, atElement){
@@ -16,7 +16,7 @@ export default class PageArea{
 
     _render(resource){
         let cls = resource.cls;
-        let pageCtor = pages[cls];
+        let pageCtor = pageLookup(cls);
 
         if (!pageCtor){
             log.error(() => "Unable to find pagearea view for: " + cls);

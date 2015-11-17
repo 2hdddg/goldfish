@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PageLink from '../components/pagelink';
+import { register } from './registry';
 
 export default class UserCalendarsPage extends React.Component {
     render(){
@@ -41,3 +42,5 @@ export default class UserCalendarsPage extends React.Component {
         return content;
     }
 }
+
+register('UserCalendars', UserCalendarsPage);

@@ -14,6 +14,7 @@
     "babelify": "^6.3.0",
     "browserify": "^11.1.0",
     "browserify-shim": "^3.8.10",
+    "glob": "^6.0.1",
     "gulp": "^3.9.0",
     "vinyl-source-stream": "^1.1.0"
   },
@@ -22,7 +23,9 @@
   },
   "author": "",
   "license": "ISC",
-  "browserify-shim":{
-    "whatwg-fetch": {"exports": "fetch"}
+  "browserify-shim": {
+    "whatwg-fetch": {
+      "exports": "fetch"
+    }
   }
 }

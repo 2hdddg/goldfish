@@ -45,8 +45,8 @@ export default function start(applicationJson){
         else{
             server
                 .getJson(url)
-                .then(json => {
-                    renderResource(json);
+                .then(r => {
+                    renderResource(r);
                 })
                 .catch(e =>
                     renderErrorPageAndThrow("Resource load failed: " + e, e)
