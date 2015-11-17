@@ -22,7 +22,14 @@ export default class Application extends Resource {
         return this._current;
     }
 
-    set current(json){
+    set current(jsonOrResource){
+        if (typeof jsonOrResource.property === "function"){
+            this._current = jsonOrResource;
+            return;
+        }
+
+        let json = jsonOrResource;
+
         // Special case happens when trying to
         // set application as current, this actually
         // means that we should use the initial embedded
